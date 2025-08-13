@@ -66,3 +66,5 @@ package-lock.json\
 yarn.lock\
 }
 /backend/node_modules
+/flrvi_app/node_modules
+/mobile/flrvi_app/node_modules
