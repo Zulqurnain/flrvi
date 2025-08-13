@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#F5F5F5",
+      "flex": 1,
+      "justifyContent": "space-between",
+      "padding": 24,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#333333",
+          "fontSize": 24,
+          "fontWeight": "bold",
+          "marginBottom": 40,
+          "textAlign": "center",
+        }
+      }
+    >
+      Basic Info
+    </Text>
+    <Text
+      style={
+        {
+          "color": "#333333",
+          "fontSize": 16,
+          "fontWeight": "600",
+          "marginBottom": 10,
+          "marginTop": 20,
+        }
+      }
+    >
+      Your Birthday
+    </Text>
+    <RNDatePicker
+      buttonColor="#000000"
+      cancelText="Cancel"
+      confirmText="Confirm"
+      date="2025-08-09T19:26:04.188Z"
+      dividerColor="#000000"
+      minuteInterval={1}
+      mode="date"
+      onChange={[Function]}
+      onDateChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "height": 216,
+            "width": 310,
+          },
+          undefined,
+        ]
+      }
+      textColor="#000000"
+      theme="light"
+      timeZoneOffsetInMinutes=""
+      title="Select date"
+    />
+    <Text
+      style={
+        {
+          "color": "#333333",
+          "fontSize": 16,
+          "fontWeight": "600",
+          "marginBottom": 10,
+          "marginTop": 20,
+        }
+      }
+    >
+      Your Gender
+    </Text>
+    <RNCSegmentedControl
+      enabled={true}
+      onChange={[Function]}
+      selectedIndex={0}
+      style={
+        [
+          {
+            "height": 32,
+          },
+          undefined,
+        ]
+      }
+      values={
+        [
+          "Man",
+          "Woman",
+          "Other",
+        ]
+      }
+    />
+  </View>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {},
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "#007AFF",
+              "fontSize": 18,
+              "margin": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Next
+      </Text>
+    </View>
+  </View>
+</View>
+`;

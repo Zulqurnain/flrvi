@@ -1,0 +1,110 @@
+{
+  "pageId": "AdminReportedContentPage",
+  "version": "1.0",
+  "path": "/admin/reports",
+  "description": "A page for administrators to review and take action on user-reported content.",
+  "layout": {
+    "type": "sidebar-main"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "Reported Content"
+    },
+    {
+      "componentId": "ReportQueueTable",
+      "componentType": "Table",
+      "columns": [
+        { "key": "reportId", "label": "Report ID" },
+        { "key": "reportedUser", "label": "Reported User" },
+        { "key": "reporter", "label": "Reporter" },
+        { "key": "reason", "label": "Reason" },
+        { "key": "date", "label": "Date" },
+        { "key": "actions", "label": "Actions" }
+      ],
+      "dataSource": {
+        "api": "fetchReports"
+      },
+      "rowActions": [
+        {
+          "label": "View Details",
+          "action": "openModal",
+          "payload": { "modalId": "ReportDetailsModal", "data": "row" }
+        }
+      ]
+    }
+  ],
+  "modals": [
+    {
+      "modalId": "ReportDetailsModal",
+      "uiComponents": [
+        {
+          "componentId": "ReportDetails",
+          "componentType": "KeyValueDisplay",
+          "data": [
+            { "label": "Reported User", "value": "report.reportedUser.name" },
+            { "label": "Reporter", "value": "report.reporter.name" },
+            { "label": "Reason", "value": "report.reason" },
+            { "label": "Comments", "value": "report.comments" }
+          ]
+        },
+        {
+          "componentId": "ActionButtons",
+          "componentType": "View",
+          "style": "button_group",
+          "children": [
+            {
+              "componentId": "WarnUserButton",
+              "componentType": "Button",
+              "label": "Warn User",
+              "action": "dispatchThunk",
+              "payload": { "thunk": "warnUser", "userId": "report.reportedUser.id" }
+            },
+            {
+              "componentId": "SuspendUserButton",
+              "componentType": "Button",
+              "label": "Suspend User (7 days)",
+              "action": "dispatchThunk",
+              "payload": { "thunk": "suspendUser", "userId": "report.reportedUser.id" }
+            },
+            {
+              "componentId": "BanUserButton",
+              "componentType": "Button",
+              "style": "destructive",
+              "label": "Ban User",
+              "action": "dispatchThunk",
+              "payload": { "thunk": "banUser", "userId": "report.reportedUser.id" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "apiCalls": [
+    {
+      "id": "fetchReports",
+      "endpoint": "/admin/reports",
+      "method": "GET",
+      "description": "Fetches a list of all open user reports."
+    },
+    {
+      "id": "warnUser",
+      "endpoint": "/admin/users/{userId}/warn",
+      "method": "POST",
+      "description": "Sends a formal warning to a user."
+    },
+    {
+      "id": "suspendUser",
+      "endpoint": "/admin/users/{userId}/suspend",
+      "method": "POST",
+      "description": "Temporarily suspends a user's account."
+    },
+    {
+      "id": "banUser",
+      "endpoint": "/admin/users/{userId}/ban",
+      "method": "POST",
+      "description": "Permanently bans a user's account."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "screenId": "SubscriptionScreen",
+  "version": "1.0",
+  "description": "Displays the benefits of the premium subscription and allows users to purchase it.",
+  "layout": {
+    "type": "scrollView",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "ScreenTitle",
+      "componentType": "Text",
+      "content": {
+        "key": "premium_title",
+        "defaultValue": "FLRVI Premium"
+      },
+      "style": "h1_center"
+    },
+    {
+      "componentId": "FeatureList",
+      "componentType": "ListView",
+      "items": [
+        { "icon": "message", "textKey": "premium_feature_messaging" },
+        { "icon": "search", "textKey": "premium_feature_filters" },
+        { "icon": "heart", "textKey": "premium_feature_likes" },
+        { "icon": "eye", "textKey": "premium_feature_receipts" }
+      ]
+    },
+    {
+      "componentId": "PricingBox",
+      "componentType": "View",
+      "style": "pricing_box",
+      "children": [
+        {
+          "componentId": "PriceText",
+          "componentType": "Text",
+          "content": {
+            "template": "{price} THB / month",
+            "values": {
+              "price": 299
+            }
+          },
+          "style": "h2"
+        }
+      ]
+    },
+    {
+      "componentId": "SubscribeButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "subscribe_button",
+        "defaultValue": "Subscribe Now"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "initiatePayment",
+          "payload": {
+            "planId": "monthly_299"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectSubscriptionStatus"],
+      "actions": ["subscribeUser"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "subscribeUser",
+      "endpoint": "/payment/subscribe",
+      "method": "POST",
+      "description": "Initiates the subscription process for the user."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "screenId": "MyProfileScreen",
+  "version": "1.0",
+  "description": "Displays the current user's own profile as it appears to others.",
+  "layout": {
+    "type": "scrollView"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "my_profile_title", "defaultValue": "My Profile" },
+      "rightAction": {
+        "icon": "edit",
+        "action": "navigateTo",
+        "payload": { "targetScreen": "EditProfileScreen" }
+      }
+    },
+    {
+      "componentId": "PhotoCarousel",
+      "componentType": "ImageCarousel",
+      "dataSource": { "selector": "selectCurrentUserProfilePhotos" }
+    },
+    {
+      "componentId": "ProfileHeader",
+      "componentType": "View",
+      "style": "profile_header",
+      "children": [
+        {
+          "componentId": "Name",
+          "componentType": "Text",
+          "content": { "selector": "selectCurrentUserName" },
+          "style": "h1"
+        },
+        {
+          "componentId": "AgeAndLocation",
+          "componentType": "Text",
+          "content": {
+            "template": "{age}, {location}",
+            "selectors": {
+              "age": "selectCurrentUserProfileAge",
+              "location": "selectCurrentUserProfileLocation"
+            }
+          },
+          "style": "subheading"
+        }
+      ]
+    },
+    {
+      "componentId": "BioSection",
+      "componentType": "Section",
+      "title": { "key": "bio_title", "defaultValue": "About Me" },
+      "children": [
+        {
+          "componentId": "BioText",
+          "componentType": "Text",
+          "content": { "selector": "selectCurrentUserProfileBio" }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectCurrentUserProfile", "selectCurrentUserName"],
+      "actions": ["fetchCurrentUserProfile"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchCurrentUserProfile",
+      "endpoint": "/profile/me",
+      "method": "GET",
+      "description": "Fetches the detailed profile of the currently authenticated user."
+    }
+  ]
+}

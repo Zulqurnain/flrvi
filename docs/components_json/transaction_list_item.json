@@ -1,0 +1,49 @@
+{
+  "componentId": "TransactionListItem",
+  "version": "1.0",
+  "description": "A reusable component for displaying a single transaction in a list.",
+  "props": [
+    {
+      "name": "transaction",
+      "type": "object",
+      "description": "The transaction data to display."
+    }
+  ],
+  "layout": {
+    "type": "row",
+    "alignment": "space-between",
+    "padding": 16,
+    "borderBottom": "1px solid #BDBDBD"
+  },
+  "uiComponents": [
+    {
+      "componentId": "TransactionDetails",
+      "componentType": "View",
+      "children": [
+        {
+          "componentId": "Description",
+          "componentType": "Text",
+          "content": "transaction.description",
+          "style": "body_bold"
+        },
+        {
+          "componentId": "Date",
+          "componentType": "Text",
+          "content": "transaction.date",
+          "style": "caption"
+        }
+      ]
+    },
+    {
+      "componentId": "Amount",
+      "componentType": "Text",
+      "content": {
+        "template": "{amount} THB",
+        "values": {
+          "amount": "transaction.amount"
+        }
+      },
+      "style": "body_bold"
+    }
+  ]
+}

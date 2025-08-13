@@ -1,0 +1,88 @@
+{
+  "pageId": "AdminUserDetailPage",
+  "version": "1.0",
+  "path": "/admin/users/:userId",
+  "description": "A page for administrators to view the complete details of a specific user and perform moderation actions.",
+  "layout": {
+    "type": "sidebar-main"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": {
+        "template": "User Details: {userName}",
+        "dataSource": { "api": "fetchUserDetails", "key": "name" }
+      }
+    },
+    {
+      "componentId": "UserProfileInfo",
+      "componentType": "Section",
+      "title": "User Profile",
+      "children": [
+        {
+          "componentId": "ProfileDetails",
+          "componentType": "KeyValueDisplay",
+          "dataSource": { "api": "fetchUserDetails", "key": "profile" },
+          "fields": ["bio", "location", "interests", "age", "gender"]
+        },
+        {
+          "componentId": "ProfilePhotos",
+          "componentType": "ImageGrid",
+          "dataSource": { "api": "fetchUserDetails", "key": "profile.photos" }
+        }
+      ]
+    },
+    {
+      "componentId": "AccountInfo",
+      "componentType": "Section",
+      "title": "Account Information",
+      "children": [
+        {
+          "componentId": "AccountDetails",
+          "componentType": "KeyValueDisplay",
+          "dataSource": { "api": "fetchUserDetails" },
+          "fields": ["_id", "email", "role", "isPremium", "last_active"]
+        }
+      ]
+    },
+    {
+      "componentId": "ModerationActions",
+      "componentType": "Section",
+      "title": "Moderation Actions",
+      "children": [
+        {
+          "componentId": "ActionButtons",
+          "componentType": "View",
+          "style": "button_group",
+          "children": [
+            {
+              "componentId": "WarnUserButton",
+              "componentType": "Button",
+              "label": "Warn User"
+            },
+            {
+              "componentId": "SuspendUserButton",
+              "componentType": "Button",
+              "label": "Suspend User"
+            },
+            {
+              "componentId": "BanUserButton",
+              "componentType": "Button",
+              "style": "destructive",
+              "label": "Ban User"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "apiCalls": [
+    {
+      "id": "fetchUserDetails",
+      "endpoint": "/admin/users/{userId}",
+      "method": "GET",
+      "description": "Fetches the complete details for a single user, including their profile."
+    }
+  ]
+}

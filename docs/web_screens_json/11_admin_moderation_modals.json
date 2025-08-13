@@ -1,0 +1,82 @@
+{
+  "flowName": "AdminModerationModals",
+  "version": "1.0",
+  "description": "Defines the confirmation modals for administrator moderation actions.",
+  "modals": [
+    {
+      "modalId": "WarnUserModal",
+      "trigger": "Admin clicks 'Warn User' on the User Detail Page.",
+      "layout": { "type": "modal", "maxWidth": "500px" },
+      "uiComponents": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h2",
+          "content": { "template": "Send Warning to {userName}?" }
+        },
+        {
+          "componentId": "WarningReasonInput",
+          "componentType": "TextAreaInput",
+          "label": { "key": "warning_reason_label", "defaultValue": "Reason for warning (optional)" }
+        },
+        {
+          "componentId": "ConfirmButton",
+          "componentType": "Button",
+          "label": "Send Warning",
+          "userActions": [{ "trigger": "onClick", "action": "dispatchThunk", "payload": { "thunk": "warnUser" } }]
+        }
+      ]
+    },
+    {
+      "modalId": "SuspendUserModal",
+      "trigger": "Admin clicks 'Suspend User' on the User Detail Page.",
+      "layout": { "type": "modal", "maxWidth": "500px" },
+      "uiComponents": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h2",
+          "content": { "template": "Suspend {userName}?" }
+        },
+        {
+          "componentId": "SuspensionDurationSelector",
+          "componentType": "Select",
+          "label": { "key": "suspension_duration_label", "defaultValue": "Suspension Duration" },
+          "options": ["24 hours", "3 days", "7 days", "30 days"]
+        },
+        {
+          "componentId": "ConfirmButton",
+          "componentType": "Button",
+          "label": "Suspend User",
+          "userActions": [{ "trigger": "onClick", "action": "dispatchThunk", "payload": { "thunk": "suspendUser" } }]
+        }
+      ]
+    },
+    {
+      "modalId": "BanUserModal",
+      "trigger": "Admin clicks 'Ban User' on the User Detail Page.",
+      "layout": { "type": "modal", "maxWidth": "500px" },
+      "uiComponents": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h2",
+          "content": { "template": "Permanently Ban {userName}?" },
+          "style": "destructive"
+        },
+        {
+          "componentId": "ConfirmationText",
+          "componentType": "Text",
+          "content": { "key": "ban_confirmation_text", "defaultValue": "This action is irreversible and will permanently delete the user's account and data." }
+        },
+        {
+          "componentId": "ConfirmButton",
+          "componentType": "Button",
+          "style": "destructive",
+          "label": "Yes, Ban User",
+          "userActions": [{ "trigger": "onClick", "action": "dispatchThunk", "payload": { "thunk": "banUser" } }]
+        }
+      ]
+    }
+  ]
+}

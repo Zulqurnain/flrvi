@@ -1,0 +1,49 @@
+{
+  "pageId": "WebLoginPage",
+  "version": "1.0",
+  "path": "/login",
+  "description": "A page for existing users to log in to their account on the web.",
+  "layout": {
+    "type": "centered-container",
+    "maxWidth": "400px"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "Welcome Back to FLRVI"
+    },
+    {
+      "componentId": "LoginForm",
+      "componentType": "Form",
+      "children": [
+        {
+          "componentId": "EmailInput",
+          "componentType": "TextInput",
+          "label": "Email"
+        },
+        {
+          "componentId": "PasswordInput",
+          "componentType": "TextInput",
+          "label": "Password",
+          "isSecure": true
+        },
+        {
+          "componentId": "SubmitButton",
+          "componentType": "Button",
+          "label": "Login"
+        }
+      ]
+    }
+  ],
+  "clientSideLogic": {
+    "onSubmit": "Call the login API. On success, store the JWT, and redirect to the user's dashboard/home page."
+  },
+  "apiCalls": [
+    {
+      "id": "loginUser",
+      "endpoint": "/api/v1/users/login",
+      "method": "POST"
+    }
+  ]
+}

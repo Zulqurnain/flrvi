@@ -1,0 +1,43 @@
+{
+  "endpoint": "/api/v1/admin/users/{id}",
+  "method": "DELETE",
+  "description": "Schema definition for deleting a user. Admin-only endpoint.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The admin user's JWT for authentication.",
+        "required": true
+      }
+    ],
+    "pathParams": [
+      {
+        "name": "id",
+        "type": "string",
+        "format": "objectId",
+        "description": "The ID of the user to delete."
+      }
+    ]
+  },
+  "response": {
+    "200_OK": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "A success message confirming the deletion.",
+          "examples": ["User deleted"]
+        }
+      }
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    },
+    "403_Forbidden": {
+      "description": "Returned if the authenticated user is not an admin."
+    },
+    "404_NotFound": {
+      "description": "Returned if no user is found with the given ID."
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "componentId": "BlockedUserListItem",
+  "version": "1.0",
+  "description": "A reusable component for displaying a single blocked user in a list.",
+  "props": [
+    {
+      "name": "user",
+      "type": "object",
+      "description": "The blocked user's data to display."
+    },
+    {
+      "name": "onUnblock",
+      "type": "function",
+      "description": "Function to execute when the unblock button is tapped."
+    }
+  ],
+  "layout": {
+    "type": "row",
+    "alignment": "space-between",
+    "padding": 16
+  },
+  "uiComponents": [
+    {
+      "componentId": "Avatar",
+      "componentType": "Image",
+      "dataSource": "user.avatar",
+      "style": {
+        "width": 50,
+        "height": 50,
+        "borderRadius": 25,
+        "marginRight": 12
+      }
+    },
+    {
+      "componentId": "UserName",
+      "componentType": "Text",
+      "content": "user.name",
+      "style": "h3"
+    },
+    {
+      "componentId": "UnblockButton",
+      "componentType": "Button",
+      "style": "secondary",
+      "content": {
+        "labelKey": "unblock_button",
+        "defaultValue": "Unblock"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "props.onUnblock",
+          "payload": {
+            "userId": "user.id"
+          }
+        }
+      ]
+    }
+  ]
+}

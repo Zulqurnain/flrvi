@@ -1,0 +1,56 @@
+{
+  "componentId": "MessageBubble",
+  "version": "1.0",
+  "description": "A reusable component for displaying a single message in a chat.",
+  "props": [
+    {
+      "name": "message",
+      "type": "object",
+      "description": "The message data to display."
+    },
+    {
+      "name": "isCurrentUser",
+      "type": "boolean",
+      "description": "If true, the bubble will be styled as an outgoing message."
+    }
+  ],
+  "layout": {
+    "type": "stack",
+    "maxWidth": "75%",
+    "padding": 12,
+    "borderRadius": 18
+  },
+  "style": {
+    "conditional": {
+      "if": "isCurrentUser",
+      "true": {
+        "backgroundColor": "#E91E63",
+        "alignSelf": "flex-end"
+      },
+      "false": {
+        "backgroundColor": "#F5F5F5",
+        "alignSelf": "flex-start"
+      }
+    }
+  },
+  "uiComponents": [
+    {
+      "componentId": "MessageText",
+      "componentType": "Text",
+      "content": "message.text",
+      "style": {
+        "conditional": {
+          "if": "isCurrentUser",
+          "true": { "color": "#FFFFFF" },
+          "false": { "color": "#333333" }
+        }
+      }
+    },
+    {
+      "componentId": "VoiceNotePlayer",
+      "componentType": "AudioPlayer",
+      "dataSource": "message.voiceNoteUrl",
+      "condition": "message.type === 'voice_note'"
+    }
+  ]
+}

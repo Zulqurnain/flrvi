@@ -1,0 +1,54 @@
+{
+  "pageId": "WebSignupPage",
+  "version": "1.0",
+  "path": "/signup",
+  "description": "A page for new users to create an account on the web.",
+  "layout": {
+    "type": "centered-container",
+    "maxWidth": "400px"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "Create Your FLRVI Account"
+    },
+    {
+      "componentId": "SignupForm",
+      "componentType": "Form",
+      "children": [
+        {
+          "componentId": "NameInput",
+          "componentType": "TextInput",
+          "label": "Name"
+        },
+        {
+          "componentId": "EmailInput",
+          "componentType": "TextInput",
+          "label": "Email"
+        },
+        {
+          "componentId": "PasswordInput",
+          "componentType": "TextInput",
+          "label": "Password",
+          "isSecure": true
+        },
+        {
+          "componentId": "SubmitButton",
+          "componentType": "Button",
+          "label": "Sign Up"
+        }
+      ]
+    }
+  ],
+  "clientSideLogic": {
+    "onSubmit": "Call the register API. On success, store the JWT, and redirect to the user's new profile page."
+  },
+  "apiCalls": [
+    {
+      "id": "registerUser",
+      "endpoint": "/api/v1/users/register",
+      "method": "POST"
+    }
+  ]
+}

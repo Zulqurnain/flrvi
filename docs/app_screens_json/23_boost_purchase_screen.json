@@ -1,0 +1,57 @@
+{
+  "screenId": "BoostPurchaseScreen",
+  "version": "1.0",
+  "description": "A modal screen that allows users to purchase a 'Boost' consumable to increase their profile's visibility.",
+  "layout": {
+    "type": "modal"
+  },
+  "uiComponents": [
+    {
+      "componentId": "ModalTitle",
+      "componentType": "Text",
+      "content": { "key": "boost_title", "defaultValue": "Boost Your Profile" },
+      "style": "h1"
+    },
+    {
+      "componentId": "BoostDescription",
+      "componentType": "Text",
+      "content": { "key": "boost_description", "defaultValue": "Get seen by more people in your area for 30 minutes." },
+      "style": "body"
+    },
+    {
+      "componentId": "PriceDisplay",
+      "componentType": "Text",
+      "content": { "template": "{price} THB", "values": { "price": 50 } },
+      "style": "h2"
+    },
+    {
+      "componentId": "PurchaseButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": { "labelKey": "purchase_boost_button", "defaultValue": "Purchase Boost" },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "initiateInAppPurchase",
+          "payload": {
+            "productId": "boost_50_thb"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectBoostPurchaseStatus"],
+      "actions": ["purchaseBoost"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "purchaseBoost",
+      "endpoint": "/payment/purchase-consumable",
+      "method": "POST",
+      "description": "Handles the server-side validation of an in-app purchase for a consumable item."
+    }
+  ]
+}

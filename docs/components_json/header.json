@@ -1,0 +1,71 @@
+{
+  "componentId": "Header",
+  "version": "1.0",
+  "description": "A reusable header component displayed at the top of most screens.",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The title text to display in the center of the header."
+    },
+    {
+      "name": "leftAction",
+      "type": "object",
+      "description": "Defines the action and icon for the left side of the header (e.g., a back button)."
+    },
+    {
+      "name": "rightAction",
+      "type": "object",
+      "description": "Defines the action and icon/label for the right side of the header (e.g., a filter or save button)."
+    }
+  ],
+  "layout": {
+    "type": "row",
+    "alignment": "space-between",
+    "padding": 16,
+    "height": 60,
+    "backgroundColor": "#FFFFFF",
+    "boxShadow": "small"
+  },
+  "uiComponents": [
+    {
+      "componentId": "LeftActionContainer",
+      "componentType": "View",
+      "style": { "width": 50 },
+      "children": [
+        {
+          "componentId": "LeftActionButton",
+          "componentType": "IconButton",
+          "icon": "props.leftAction.icon",
+          "userActions": [{ "trigger": "onPress", "action": "props.leftAction.action" }]
+        }
+      ]
+    },
+    {
+      "componentId": "TitleContainer",
+      "componentType": "View",
+      "children": [
+        {
+          "componentId": "TitleText",
+          "componentType": "Text",
+          "content": "props.title",
+          "style": "h2"
+        }
+      ]
+    },
+    {
+      "componentId": "RightActionContainer",
+      "componentType": "View",
+      "style": { "width": 50 },
+      "children": [
+        {
+          "componentId": "RightActionButton",
+          "componentType": "IconButton",
+          "icon": "props.rightAction.icon",
+          "label": "props.rightAction.label",
+          "userActions": [{ "trigger": "onPress", "action": "props.rightAction.action" }]
+        }
+      ]
+    }
+  ]
+}

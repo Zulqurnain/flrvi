@@ -1,0 +1,52 @@
+{
+  "screenId": "MessagesScreen",
+  "version": "1.0",
+  "description": "Displays a list of the user's ongoing conversations.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": {
+        "key": "messages_title",
+        "defaultValue": "Messages"
+      }
+    },
+    {
+      "componentId": "ConversationList",
+      "componentType": "FlatList",
+      "renderItem": "ConversationListItem",
+      "dataSource": {
+        "selector": "selectConversations"
+      },
+      "userActions": [
+        {
+          "trigger": "onPressItem",
+          "action": "navigateTo",
+          "payload": {
+            "targetScreen": "ChatScreen",
+            "params": {
+              "conversationId": "item.id"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectConversations", "selectConversationsLoadingStatus"],
+      "actions": ["fetchConversations"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchConversations",
+      "endpoint": "/chat/conversations",
+      "method": "GET",
+      "description": "Fetches a list of the user's conversations."
+    }
+  ]
+}

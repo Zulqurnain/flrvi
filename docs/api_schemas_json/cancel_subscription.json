@@ -1,0 +1,40 @@
+{
+  "endpoint": "/api/v1/payment/cancel-subscription",
+  "method": "POST",
+  "description": "Schema definition for canceling a user's active premium subscription.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The user's JWT for authentication.",
+        "required": true
+      }
+    ],
+    "body": {
+      "type": "object",
+      "properties": {},
+      "description": "The request body is empty for this endpoint."
+    }
+  },
+  "response": {
+    "200_OK": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "A success message confirming the cancellation.",
+          "examples": ["Subscription canceled successfully"]
+        }
+      }
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    },
+    "404_NotFound": {
+      "description": "Returned if the user does not have an active subscription to cancel."
+    },
+    "500_ServerError": {
+      "description": "Returned if the cancellation fails on the Omise side."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "screenId": "PrivacyPolicyScreen",
+  "version": "1.0",
+  "description": "Displays the application's Privacy Policy.",
+  "layout": {
+    "type": "scrollView",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "privacy_policy_title", "defaultValue": "Privacy Policy" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "PolicyContent",
+      "componentType": "WebView",
+      "source": {
+        "uri": "https://flrvi.com/privacy"
+      }
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": [],
+      "actions": []
+    }
+  },
+  "apiCalls": []
+}

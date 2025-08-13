@@ -1,0 +1,76 @@
+{
+  "flowName": "UserBlockingAndReporting",
+  "version": "1.0",
+  "description": "The user flow for blocking and reporting another user.",
+  "trigger": "User taps the 'more' icon on another user's profile screen.",
+  "screens": [
+    {
+      "screenId": "ReportOptionsModal",
+      "description": "A modal that presents the user with options to block or report.",
+      "uiComponents": [
+        {
+          "componentId": "BlockButton",
+          "componentType": "Button",
+          "style": "destructive",
+          "content": { "labelKey": "block_user", "defaultValue": "Block User" },
+          "userActions": [{ "trigger": "onPress", "action": "navigateTo", "payload": { "targetScreen": "BlockConfirmationDialog" } }]
+        },
+        {
+          "componentId": "ReportButton",
+          "componentType": "Button",
+          "style": "destructive",
+          "content": { "labelKey": "report_user", "defaultValue": "Report User" },
+          "userActions": [{ "trigger": "onPress", "action": "navigateTo", "payload": { "targetScreen": "ReportReasonScreen" } }]
+        }
+      ]
+    },
+    {
+      "screenId": "BlockConfirmationDialog",
+      "description": "A dialog to confirm that the user wants to block another user.",
+      "uiComponents": [
+        {
+          "componentId": "ConfirmationText",
+          "componentType": "Text",
+          "content": { "key": "block_confirmation_text", "defaultValue": "Are you sure you want to block this user? You will no longer see their profile or be able to contact them." }
+        },
+        {
+          "componentId": "ConfirmBlockButton",
+          "componentType": "Button",
+          "content": { "labelKey": "confirm_block", "defaultValue": "Block" },
+          "userActions": [{ "trigger": "onPress", "action": "dispatchThunk", "payload": { "thunk": "blockUser" } }]
+        }
+      ]
+    },
+    {
+      "screenId": "ReportReasonScreen",
+      "description": "Allows the user to select a reason for reporting another user.",
+      "uiComponents": [
+        {
+          "componentId": "ReasonList",
+          "componentType": "RadioGroup",
+          "options": ["Inappropriate Photos", "Spam or Scam", "Harassment", "Underage"]
+        },
+        {
+          "componentId": "SubmitReportButton",
+          "componentType": "Button",
+          "content": { "labelKey": "submit_report", "defaultValue": "Submit Report" },
+          "userActions": [{ "trigger": "onPress", "action": "dispatchThunk", "payload": { "thunk": "reportUser" } }]
+        }
+      ]
+    }
+  ],
+  "apiCalls": [
+    {
+      "id": "blockUser",
+      "endpoint": "/users/block",
+      "method": "POST",
+      "description": "Blocks another user."
+    },
+    {
+      "id": "reportUser",
+      "endpoint": "/users/report",
+      "method": "POST",
+      "description": "Reports another user for a specific reason."
+    }
+  ]
+}

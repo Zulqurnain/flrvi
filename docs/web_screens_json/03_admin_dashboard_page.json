@@ -1,0 +1,103 @@
+{
+  "pageId": "AdminDashboardPage",
+  "version": "1.0",
+  "path": "/admin/dashboard",
+  "description": "A dashboard for administrators to manage the application's users.",
+  "layout": {
+    "type": "sidebar-main"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Sidebar",
+      "componentType": "View",
+      "children": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h2",
+          "content": "Admin"
+        },
+        {
+          "componentId": "NavMenu",
+          "componentType": "ListView",
+          "items": [
+            { "label": "User Management", "active": true },
+            { "label": "Dashboard" },
+            { "label": "Settings" }
+          ]
+        }
+      ]
+    },
+    {
+      "componentId": "MainContent",
+      "componentType": "View",
+      "children": [
+        {
+          "componentId": "Header",
+          "componentType": "View",
+          "children": [
+            {
+              "componentId": "PageTitle",
+              "componentType": "Text",
+              "tag": "h1",
+              "content": "User Management"
+            },
+            {
+              "componentId": "LogoutButton",
+              "componentType": "Button",
+              "content": {
+                "label": "Logout"
+              },
+              "userActions": [
+                {
+                  "trigger": "onClick",
+                  "action": "logout"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "componentId": "UserTable",
+          "componentType": "Table",
+          "columns": [
+            { "key": "_id", "label": "User ID" },
+            { "key": "name", "label": "Name" },
+            { "key": "email", "label": "Email" },
+            { "key": "actions", "label": "Actions" }
+          ],
+          "dataSource": {
+            "api": "fetchUsers"
+          },
+          "rowActions": [
+            {
+              "label": "Delete",
+              "action": "deleteUser",
+              "payload": {
+                "userId": "row._id"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "clientSideLogic": {
+    "onLoad": "Fetch the list of users from the API and populate the table.",
+    "deleteUser": "Show a confirmation dialog. If confirmed, call the delete user API and refresh the table on success."
+  },
+  "apiCalls": [
+    {
+      "id": "fetchUsers",
+      "endpoint": "/admin/users",
+      "method": "GET",
+      "description": "Fetches a list of all users."
+    },
+    {
+      "id": "deleteUser",
+      "endpoint": "/admin/users/{userId}",
+      "method": "DELETE",
+      "description": "Deletes a specific user."
+    }
+  ]
+}

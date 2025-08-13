@@ -1,0 +1,51 @@
+{
+  "endpoint": "/api/v1/chat/conversations",
+  "method": "GET",
+  "description": "Schema definition for fetching the current user's list of conversations.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The user's JWT for authentication.",
+        "required": true
+      }
+    ]
+  },
+  "response": {
+    "200_OK": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ConversationSummary"
+      }
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    }
+  },
+  "components": {
+    "schemas": {
+      "ConversationSummary": {
+        "type": "object",
+        "properties": {
+          "conversationId": { "type": "string", "format": "objectId" },
+          "recipient": {
+            "type": "object",
+            "properties": {
+              "userId": { "type": "string", "format": "objectId" },
+              "name": { "type": "string" },
+              "avatar": { "type": "string", "format": "uri" }
+            }
+          },
+          "lastMessage": {
+            "type": "object",
+            "properties": {
+              "text": { "type": "string" },
+              "timestamp": { "type": "string", "format": "date-time" },
+              "isRead": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

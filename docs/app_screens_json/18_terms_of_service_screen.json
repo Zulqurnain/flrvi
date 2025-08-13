@@ -1,0 +1,31 @@
+{
+  "screenId": "TermsOfServiceScreen",
+  "version": "1.0",
+  "description": "Displays the application's Terms of Service.",
+  "layout": {
+    "type": "scrollView",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "terms_of_service_title", "defaultValue": "Terms of Service" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "TermsContent",
+      "componentType": "WebView",
+      "source": {
+        "uri": "https://flrvi.com/terms"
+      }
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": [],
+      "actions": []
+    }
+  },
+  "apiCalls": []
+}

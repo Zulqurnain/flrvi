@@ -1,0 +1,77 @@
+{
+  "pageId": "LandingPage",
+  "version": "1.0",
+  "path": "/",
+  "description": "The public-facing marketing page for FLRVI, designed to capture pre-registrations.",
+  "layout": {
+    "type": "centered-container",
+    "maxWidth": "400px"
+  },
+  "uiComponents": [
+    {
+      "componentId": "HeroSection",
+      "componentType": "View",
+      "children": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h1",
+          "content": {
+            "key": "landing_title",
+            "defaultValue": "Coming Soon!"
+          }
+        },
+        {
+          "componentId": "Subtitle",
+          "componentType": "Text",
+          "tag": "p",
+          "content": {
+            "key": "landing_subtitle",
+            "defaultValue": "Be the first to find your connection. Pre-register now and we'll notify you at launch."
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "PreRegistrationForm",
+      "componentType": "Form",
+      "children": [
+        {
+          "componentId": "NameInput",
+          "componentType": "TextInput",
+          "placeholder": {
+            "key": "name_placeholder",
+            "defaultValue": "Your Name"
+          }
+        },
+        {
+          "componentId": "EmailInput",
+          "componentType": "TextInput",
+          "placeholder": {
+            "key": "email_placeholder",
+            "defaultValue": "Your Email"
+          }
+        },
+        {
+          "componentId": "SubmitButton",
+          "componentType": "Button",
+          "content": {
+            "labelKey": "notify_me_button",
+            "defaultValue": "Notify Me"
+          }
+        }
+      ]
+    }
+  ],
+  "clientSideLogic": {
+    "onSubmit": "Hide the form and show a thank you message with QR codes for the app stores."
+  },
+  "apiCalls": [
+    {
+      "id": "preRegister",
+      "endpoint": "/pre-register",
+      "method": "POST",
+      "description": "(Future) Saves the user's name and email to a pre-registration list."
+    }
+  ]
+}

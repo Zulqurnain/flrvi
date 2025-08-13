@@ -1,0 +1,85 @@
+{
+  "screenId": "EventDetailScreen",
+  "version": "1.2",
+  "description": "Displays the detailed information for a single event.",
+  "layout": {
+    "type": "scrollView"
+  },
+  "uiComponents": [
+    {
+      "componentId": "EventImage",
+      "componentType": "Image",
+      "dataSource": "event.imageUrl"
+    },
+    {
+      "componentId": "EventHeader",
+      "componentType": "View",
+      "style": "padding_lg",
+      "children": [
+        {
+          "componentId": "EventTitle",
+          "componentType": "Text",
+          "content": "event.title",
+          "style": "h1"
+        },
+        {
+          "componentId": "EventDate",
+          "componentType": "Text",
+          "content": "event.date",
+          "style": "subheading"
+        },
+        {
+          "componentId": "EventLocation",
+          "componentType": "Text",
+          "content": "event.location",
+          "style": "subheading_secondary"
+        }
+      ]
+    },
+    {
+      "componentId": "EventDescription",
+      "componentType": "Text",
+      "content": "event.description",
+      "style": "body"
+    },
+    {
+      "componentId": "InterestedButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": { "labelKey": "interested_button", "defaultValue": "I'm Interested" },
+      "userActions": [{ "trigger": "onPress", "action": "dispatchThunk", "payload": { "thunk": "markAsInterested" } }]
+    },
+    {
+      "componentId": "AttendeesSection",
+      "componentType": "Section",
+      "title": { "key": "attendees_title", "defaultValue": "Who's Interested" },
+      "children": [
+        {
+          "componentId": "AttendeeList",
+          "componentType": "HorizontalUserList",
+          "dataSource": { "selector": "selectEventAttendees" }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectEventDetails", "selectEventAttendees"],
+      "actions": ["fetchEventDetails", "markAsInterested"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchEventDetails",
+      "endpoint": "/events/{eventId}",
+      "method": "GET",
+      "description": "Fetches the detailed information for a specific event."
+    },
+    {
+      "id": "markAsInterested",
+      "endpoint": "/events/{eventId}/interested",
+      "method": "POST",
+      "description": "Marks the current user as interested in an event."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "screenId": "PaymentHistoryScreen",
+  "version": "1.0",
+  "description": "Displays a list of the user's past transactions, including subscriptions and consumable purchases.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "payment_history_title", "defaultValue": "Payment History" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "TransactionList",
+      "componentType": "FlatList",
+      "renderItem": "TransactionListItem",
+      "dataSource": {
+        "selector": "selectTransactionHistory"
+      }
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectTransactionHistory"],
+      "actions": ["fetchTransactionHistory"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchTransactionHistory",
+      "endpoint": "/payment/history",
+      "method": "GET",
+      "description": "Fetches a list of the user's past transactions."
+    }
+  ]
+}

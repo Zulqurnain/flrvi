@@ -1,0 +1,104 @@
+{
+  "screenId": "LoginScreen",
+  "version": "1.0",
+  "description": "Allows an existing user to log in to their account.",
+  "layout": {
+    "type": "stack",
+    "alignment": "center",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "ScreenTitle",
+      "componentType": "Text",
+      "content": {
+        "key": "login_title",
+        "defaultValue": "Welcome Back!"
+      },
+      "style": "h1_center"
+    },
+    {
+      "componentId": "EmailInput",
+      "componentType": "TextInput",
+      "label": {
+        "key": "email_label",
+        "defaultValue": "Email"
+      },
+      "placeholder": {
+        "key": "email_placeholder",
+        "defaultValue": "Enter your email"
+      },
+      "keyboardType": "email-address",
+      "validation": {
+        "rules": ["required", "isEmail"],
+        "errorMessages": {
+          "required": "email_required_error",
+          "isEmail": "email_invalid_error"
+        }
+      }
+    },
+    {
+      "componentId": "PasswordInput",
+      "componentType": "TextInput",
+      "label": {
+        "key": "password_label",
+        "defaultValue": "Password"
+      },
+      "placeholder": {
+        "key": "password_placeholder",
+        "defaultValue": "Enter your password"
+      },
+      "isSecure": true,
+      "validation": {
+        "rules": ["required"],
+        "errorMessages": {
+          "required": "password_required_error"
+        }
+      }
+    },
+    {
+      "componentId": "LoginButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "login_button",
+        "defaultValue": "Login"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "loginUser",
+            "onSuccess": {
+              "action": "navigateTo",
+              "payload": {
+                "targetScreen": "HomeScreen"
+              }
+            },
+            "onError": {
+              "action": "showAlert",
+              "payload": {
+                "messageKey": "login_error"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectUserLoginStatus"],
+      "actions": ["loginUser"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "loginUser",
+      "endpoint": "/users/login",
+      "method": "POST",
+      "description": "Logs in an existing user and returns a JWT."
+    }
+  ]
+}

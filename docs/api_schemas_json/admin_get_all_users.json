@@ -1,0 +1,43 @@
+{
+  "endpoint": "/api/v1/admin/users",
+  "method": "GET",
+  "description": "Schema definition for fetching a list of all users. Admin-only endpoint.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The admin user's JWT for authentication.",
+        "required": true
+      }
+    ]
+  },
+  "response": {
+    "200_OK": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/UserSummary"
+      }
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    },
+    "403_Forbidden": {
+      "description": "Returned if the authenticated user is not an admin."
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserSummary": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "format": "objectId" },
+          "name": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "date": { "type": "string", "format": "date-time" },
+          "isPremium": { "type": "boolean" },
+          "role": { "type": "string" }
+        }
+      }
+    }
+  }
+}

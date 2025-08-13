@@ -1,0 +1,49 @@
+{
+  "screenId": "EventsScreen",
+  "version": "1.2",
+  "description": "A screen that displays a list of upcoming local events, allowing users to see who is interested in attending.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "events_title", "defaultValue": "Upcoming Events" }
+    },
+    {
+      "componentId": "EventList",
+      "componentType": "FlatList",
+      "renderItem": "EventCard",
+      "dataSource": {
+        "selector": "selectUpcomingEvents"
+      },
+      "userActions": [
+        {
+          "trigger": "onPressItem",
+          "action": "navigateTo",
+          "payload": {
+            "targetScreen": "EventDetailScreen",
+            "params": {
+              "eventId": "item.id"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectUpcomingEvents"],
+      "actions": ["fetchEvents"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchEvents",
+      "endpoint": "/events",
+      "method": "GET",
+      "description": "Fetches a list of upcoming events based on the user's location."
+    }
+  ]
+}

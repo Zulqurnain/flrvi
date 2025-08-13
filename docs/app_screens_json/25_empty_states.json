@@ -1,0 +1,82 @@
+{
+  "flowName": "EmptyStates",
+  "version": "1.0",
+  "description": "Defines the content and layout for various empty states within the application.",
+  "states": [
+    {
+      "screenId": "HomeScreen_Empty",
+      "description": "Shown on the Home Screen when there are no profiles matching the user's filters.",
+      "uiComponents": [
+        {
+          "componentId": "EmptyIcon",
+          "componentType": "Icon",
+          "iconName": "search-off"
+        },
+        {
+          "componentId": "EmptyTitle",
+          "componentType": "Text",
+          "content": { "key": "home_empty_title", "defaultValue": "No Matches Found" },
+          "style": "h2_center"
+        },
+        {
+          "componentId": "EmptySubtitle",
+          "componentType": "Text",
+          "content": { "key": "home_empty_subtitle", "defaultValue": "Try adjusting your filters to see more people." },
+          "style": "body_center"
+        },
+        {
+          "componentId": "AdjustFiltersButton",
+          "componentType": "Button",
+          "content": { "labelKey": "adjust_filters_button", "defaultValue": "Adjust Filters" },
+          "userActions": [{ "trigger": "onPress", "action": "navigateTo", "payload": { "targetScreen": "FilterModal" } }]
+        }
+      ]
+    },
+    {
+      "screenId": "MessagesScreen_Empty",
+      "description": "Shown on the Messages Screen when the user has no conversations.",
+      "uiComponents": [
+        {
+          "componentId": "EmptyIcon",
+          "componentType": "Icon",
+          "iconName": "message-off"
+        },
+        {
+          "componentId": "EmptyTitle",
+          "componentType": "Text",
+          "content": { "key": "messages_empty_title", "defaultValue": "No Messages Yet" },
+          "style": "h2_center"
+        },
+        {
+          "componentId": "EmptySubtitle",
+          "componentType": "Text",
+          "content": { "key": "messages_empty_subtitle", "defaultValue": "Start exploring and like someone to begin a conversation." },
+          "style": "body_center"
+        }
+      ]
+    },
+    {
+      "screenId": "WhoLikesYouScreen_Empty",
+      "description": "Shown on the 'Who Likes You' screen when no one has liked the user yet.",
+      "uiComponents": [
+        {
+          "componentId": "EmptyIcon",
+          "componentType": "Icon",
+          "iconName": "heart-off"
+        },
+        {
+          "componentId": "EmptyTitle",
+          "componentType": "Text",
+          "content": { "key": "likes_empty_title", "defaultValue": "No Likes Yet" },
+          "style": "h2_center"
+        },
+        {
+          "componentId": "EmptySubtitle",
+          "componentType": "Text",
+          "content": { "key": "likes_empty_subtitle", "defaultValue": "Keep your profile updated to attract more attention!" },
+          "style": "body_center"
+        }
+      ]
+    }
+  ]
+}

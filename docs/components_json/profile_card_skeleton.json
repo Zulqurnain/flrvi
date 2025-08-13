@@ -1,0 +1,49 @@
+{
+  "componentId": "ProfileCardSkeleton",
+  "version": "1.0",
+  "description": "A reusable skeleton component that mimics the layout of a ProfileCard, used to indicate a loading state.",
+  "props": [],
+  "layout": {
+    "type": "stack",
+    "cornerRadius": 12,
+    "backgroundColor": "#FFFFFF",
+    "boxShadow": "medium"
+  },
+  "uiComponents": [
+    {
+      "componentId": "ImagePlaceholder",
+      "componentType": "SkeletonPlaceholder",
+      "style": {
+        "aspectRatio": 1,
+        "borderTopLeftRadius": 12,
+        "borderTopRightRadius": 12
+      }
+    },
+    {
+      "componentId": "FooterPlaceholder",
+      "componentType": "View",
+      "style": "card_footer",
+      "children": [
+        {
+          "componentId": "TextPlaceholder1",
+          "componentType": "SkeletonPlaceholder",
+          "style": {
+            "width": "70%",
+            "height": 20,
+            "borderRadius": 4
+          }
+        },
+        {
+          "componentId": "TextPlaceholder2",
+          "componentType": "SkeletonPlaceholder",
+          "style": {
+            "width": "50%",
+            "height": 14,
+            "borderRadius": 4,
+            "marginTop": 8
+          }
+        }
+      ]
+    }
+  ]
+}

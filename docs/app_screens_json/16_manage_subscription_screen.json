@@ -1,0 +1,75 @@
+{
+  "screenId": "ManageSubscriptionScreen",
+  "version": "1.0",
+  "description": "Allows a premium user to view their subscription status and cancel it.",
+  "layout": {
+    "type": "stack",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "manage_subscription_title", "defaultValue": "Manage Subscription" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "SubscriptionStatus",
+      "componentType": "KeyValueDisplay",
+      "label": { "key": "status_label", "defaultValue": "Status" },
+      "value": { "selector": "selectSubscriptionStatus" }
+    },
+    {
+      "componentId": "PlanDetails",
+      "componentType": "KeyValueDisplay",
+      "label": { "key": "plan_label", "defaultValue": "Plan" },
+      "value": { "selector": "selectSubscriptionPlan" }
+    },
+    {
+      "componentId": "RenewalDate",
+      "componentType": "KeyValueDisplay",
+      "label": { "key": "renewal_date_label", "defaultValue": "Renews On" },
+      "value": { "selector": "selectSubscriptionRenewalDate" }
+    },
+    {
+      "componentId": "CancelButton",
+      "componentType": "Button",
+      "style": "destructive_large_fullWidth",
+      "content": {
+        "labelKey": "cancel_subscription_button",
+        "defaultValue": "Cancel Subscription"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "cancelSubscription",
+            "onSuccess": {
+              "action": "showAlert",
+              "payload": { "messageKey": "subscription_canceled_success" }
+            },
+            "onError": {
+              "action": "showAlert",
+              "payload": { "messageKey": "subscription_canceled_error" }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectSubscriptionDetails"],
+      "actions": ["cancelSubscription"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "cancelSubscription",
+      "endpoint": "/payment/cancel-subscription",
+      "method": "POST",
+      "description": "Cancels the user's active subscription."
+    }
+  ]
+}

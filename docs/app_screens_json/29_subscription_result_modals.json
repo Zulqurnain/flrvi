@@ -1,0 +1,75 @@
+{
+  "flowName": "SubscriptionResultModals",
+  "version": "1.0",
+  "description": "Defines the modals shown to the user after a subscription purchase attempt.",
+  "modals": [
+    {
+      "modalId": "SubscriptionSuccessModal",
+      "trigger": "Successful subscription API call",
+      "layout": {
+        "type": "modal",
+        "alignment": "center"
+      },
+      "uiComponents": [
+        {
+          "componentId": "SuccessIcon",
+          "componentType": "Icon",
+          "iconName": "check-circle",
+          "style": { "size": 64, "color": "successGreen" }
+        },
+        {
+          "componentId": "SuccessTitle",
+          "componentType": "Text",
+          "content": { "key": "subscription_success_title", "defaultValue": "Welcome to Premium!" },
+          "style": "h1_center"
+        },
+        {
+          "componentId": "SuccessMessage",
+          "componentType": "Text",
+          "content": { "key": "subscription_success_message", "defaultValue": "You now have access to all premium features." },
+          "style": "body_center"
+        },
+        {
+          "componentId": "ContinueButton",
+          "componentType": "Button",
+          "content": { "labelKey": "continue_button", "defaultValue": "Start Exploring" },
+          "userActions": [{ "trigger": "onPress", "action": "dismissModal" }]
+        }
+      ]
+    },
+    {
+      "modalId": "SubscriptionFailureModal",
+      "trigger": "Failed subscription API call",
+      "layout": {
+        "type": "modal",
+        "alignment": "center"
+      },
+      "uiComponents": [
+        {
+          "componentId": "FailureIcon",
+          "componentType": "Icon",
+          "iconName": "alert-circle",
+          "style": { "size": 64, "color": "errorRed" }
+        },
+        {
+          "componentId": "FailureTitle",
+          "componentType": "Text",
+          "content": { "key": "subscription_failure_title", "defaultValue": "Payment Failed" },
+          "style": "h1_center"
+        },
+        {
+          "componentId": "FailureMessage",
+          "componentType": "Text",
+          "content": { "key": "subscription_failure_message", "defaultValue": "We were unable to process your payment. Please try again." },
+          "style": "body_center"
+        },
+        {
+          "componentId": "RetryButton",
+          "componentType": "Button",
+          "content": { "labelKey": "retry_button", "defaultValue": "Try Again" },
+          "userActions": [{ "trigger": "onPress", "action": "dismissModal" }]
+        }
+      ]
+    }
+  ]
+}

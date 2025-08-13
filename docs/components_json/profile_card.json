@@ -1,0 +1,74 @@
+{
+  "componentId": "ProfileCard",
+  "version": "1.0",
+  "description": "A reusable card component to display a summary of a user's profile in a grid or list.",
+  "props": [
+    {
+      "name": "userProfile",
+      "type": "object",
+      "description": "The user profile data to display."
+    },
+    {
+      "name": "onPress",
+      "type": "function",
+      "description": "Function to execute when the card is tapped."
+    }
+  ],
+  "layout": {
+    "type": "stack",
+    "cornerRadius": 12,
+    "boxShadow": "medium"
+  },
+  "uiComponents": [
+    {
+      "componentId": "ProfileImage",
+      "componentType": "Image",
+      "dataSource": "userProfile.primaryPhoto",
+      "style": {
+        "aspectRatio": 1,
+        "borderTopLeftRadius": 12,
+        "borderTopRightRadius": 12
+      }
+    },
+    {
+      "componentId": "OnlineIndicator",
+      "componentType": "View",
+      "style": "online_indicator",
+      "condition": "userProfile.isOnline"
+    },
+    {
+      "componentId": "CardFooter",
+      "componentType": "View",
+      "style": "card_footer",
+      "children": [
+        {
+          "componentId": "NameAndAge",
+          "componentType": "Text",
+          "content": {
+            "template": "{name}, {age}",
+            "values": {
+              "name": "userProfile.name",
+              "age": "userProfile.age"
+            }
+          },
+          "style": "h3"
+        },
+        {
+          "componentId": "Location",
+          "componentType": "Text",
+          "content": "userProfile.location",
+          "style": "caption"
+        }
+      ]
+    }
+  ],
+  "userActions": [
+    {
+      "trigger": "onPress",
+      "action": "props.onPress",
+      "payload": {
+        "userId": "userProfile.id"
+      }
+    }
+  ]
+}

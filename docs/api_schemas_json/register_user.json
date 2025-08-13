@@ -1,0 +1,58 @@
+{
+  "endpoint": "/api/v1/users/register",
+  "method": "POST",
+  "description": "Schema definition for the user registration endpoint.",
+  "request": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The user's full name.",
+        "minLength": 2,
+        "maxLength": 50
+      },
+      "email": {
+        "type": "string",
+        "description": "The user's email address. Must be unique.",
+        "format": "email"
+      },
+      "password": {
+        "type": "string",
+        "description": "The user's chosen password.",
+        "minLength": 8
+      }
+    },
+    "required": ["name", "email", "password"]
+  },
+  "response": {
+    "200_OK": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "A JSON Web Token (JWT) for authenticating subsequent requests."
+        }
+      },
+      "required": ["token"]
+    },
+    "400_BadRequest": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "An error message, translated based on the request's language header.",
+          "examples": ["User already exists", "Invalid email format"]
+        }
+      }
+    },
+    "500_ServerError": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "A generic server error message."
+        }
+      }
+    }
+  }
+}

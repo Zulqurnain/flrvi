@@ -1,0 +1,70 @@
+{
+  "themeId": "FLRVI_Default_Theme",
+  "version": "1.0",
+  "description": "Defines the design tokens for the FLRVI application, including colors, typography, spacing, and border radii.",
+  "tokens": {
+    "colors": {
+      "primary": "#E91E63",
+      "secondary": "#FF9800",
+      "text": {
+        "primary": "#333333",
+        "secondary": "#757575",
+        "onPrimary": "#FFFFFF"
+      },
+      "background": {
+        "default": "#FFFFFF",
+        "subtle": "#F5F5F5"
+      },
+      "system": {
+        "success": "#4CAF50",
+        "error": "#F44336",
+        "border": "#BDBDBD"
+      }
+    },
+    "typography": {
+      "fontFamily": "Poppins",
+      "sizes": {
+        "xs": 12,
+        "sm": 14,
+        "md": 16,
+        "lg": 20,
+        "xl": 24
+      },
+      "weights": {
+        "light": "300",
+        "regular": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700"
+      }
+    },
+    "spacing": {
+      "baseUnit": 4,
+      "scale": {
+        "xs": 4,
+        "sm": 8,
+        "md": 16,
+        "lg": 24,
+        "xl": 32
+      }
+    },
+    "borderRadius": {
+      "sm": 4,
+      "md": 8,
+      "lg": 12,
+      "full": 9999
+    },
+    "shadows": {
+      "small": {
+        "offset": { "width": 0, "height": 2 },
+        "radius": 4,
+        "color": "rgba(0, 0, 0, 0.1)"
+      },
+      "medium": {
+        "offset": { "width": 0, "height": 5 },
+        "radius": 10,
+        "color": "rgba(0, 0, 0, 0.1)"
+      }
+    }
+  }
+}

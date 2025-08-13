@@ -1,0 +1,53 @@
+{
+  "componentId": "ToggleSwitch",
+  "version": "1.0",
+  "description": "A reusable component that displays a label and a toggle switch, used for boolean settings.",
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "description": "The text label to display next to the switch."
+    },
+    {
+      "name": "value",
+      "type": "boolean",
+      "description": "The current state of the switch (on or off)."
+    },
+    {
+      "name": "onValueChange",
+      "type": "function",
+      "description": "Callback function that is called when the switch's value changes."
+    }
+  ],
+  "layout": {
+    "type": "row",
+    "alignment": "space-between",
+    "paddingVertical": 16
+  },
+  "uiComponents": [
+    {
+      "componentId": "LabelText",
+      "componentType": "Text",
+      "content": "props.label",
+      "style": "body"
+    },
+    {
+      "componentId": "Switch",
+      "componentType": "Switch",
+      "value": "props.value",
+      "style": {
+        "trackColor": {
+          "false": "#BDBDBD",
+          "true": "#E91E63"
+        },
+        "thumbColor": "#FFFFFF"
+      },
+      "userActions": [
+        {
+          "trigger": "onValueChange",
+          "action": "props.onValueChange"
+        }
+      ]
+    }
+  ]
+}

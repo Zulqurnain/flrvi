@@ -1,0 +1,47 @@
+{
+  "endpoint": "/api/v1/profile",
+  "method": "POST",
+  "description": "Schema definition for creating or updating a user's profile.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The user's JWT for authentication.",
+        "required": true
+      }
+    ],
+    "body": {
+      "type": "object",
+      "properties": {
+        "bio": { "type": "string", "maxLength": 500 },
+        "photos": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "location": { "type": "string" },
+        "interests": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "response": {
+    "200_OK": {
+      "description": "Returns the full, updated profile object.",
+      "$ref": "#/components/schemas/Profile"
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    }
+  },
+  "components": {
+    "schemas": {
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "format": "objectId" },
+          "user": { "type": "string", "format": "objectId" },
+          "bio": { "type": "string" },
+          "photos": { "type": "array", "items": { "type": "string", "format": "uri" } },
+          "location": { "type": "string" },
+          "interests": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

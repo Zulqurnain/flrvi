@@ -1,0 +1,79 @@
+{
+  "modalId": "MatchModal",
+  "version": "1.0",
+  "description": "A full-screen modal that appears when two users have mutually liked each other, celebrating the match.",
+  "trigger": "The current user likes a profile, and that user has already liked them back.",
+  "layout": {
+    "type": "modal",
+    "style": "full-screen-celebratory"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Title",
+      "componentType": "Text",
+      "content": { "key": "its_a_match_title", "defaultValue": "It's a Match!" },
+      "style": "h1_celebratory"
+    },
+    {
+      "componentId": "UserAvatars",
+      "componentType": "View",
+      "style": "overlapping_avatars",
+      "children": [
+        {
+          "componentId": "CurrentUserAvatar",
+          "componentType": "Image",
+          "dataSource": { "selector": "selectCurrentUserAvatar" }
+        },
+        {
+          "componentId": "MatchedUserAvatar",
+          "componentType": "Image",
+          "dataSource": { "selector": "selectMatchedUserAvatar" }
+        }
+      ]
+    },
+    {
+      "componentId": "MatchInfoText",
+      "componentType": "Text",
+      "content": {
+        "key": "match_info_text",
+        "defaultValue": "You and {matchedUserName} have liked each other."
+      },
+      "style": "body_center"
+    },
+    {
+      "componentId": "SendMessageButton",
+      "componentType": "Button",
+      "style": "primary_large",
+      "content": { "labelKey": "send_message_button", "defaultValue": "Send a Message" },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "navigateTo",
+          "payload": {
+            "targetScreen": "ChatScreen",
+            "params": { "userId": "matchedUser.id" }
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "KeepSwipingButton",
+      "componentType": "Button",
+      "style": "secondary_large",
+      "content": { "labelKey": "keep_swiping_button", "defaultValue": "Keep Swiping" },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dismissModal"
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectCurrentUserAvatar", "selectMatchedUser"],
+      "actions": []
+    }
+  },
+  "apiCalls": []
+}

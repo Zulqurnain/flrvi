@@ -1,0 +1,69 @@
+{
+  "pageId": "AdminLoginPage",
+  "version": "1.0",
+  "path": "/admin/login",
+  "description": "A secure login page for application administrators.",
+  "layout": {
+    "type": "centered-container",
+    "maxWidth": "360px"
+  },
+  "uiComponents": [
+    {
+      "componentId": "LoginBox",
+      "componentType": "View",
+      "children": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h1",
+          "content": {
+            "key": "admin_login_title",
+            "defaultValue": "Admin Panel Login"
+          }
+        },
+        {
+          "componentId": "LoginForm",
+          "componentType": "Form",
+          "children": [
+            {
+              "componentId": "EmailInput",
+              "componentType": "TextInput",
+              "label": {
+                "key": "email_label",
+                "defaultValue": "Email"
+              }
+            },
+            {
+              "componentId": "PasswordInput",
+              "componentType": "TextInput",
+              "label": {
+                "key": "password_label",
+                "defaultValue": "Password"
+              },
+              "isSecure": true
+            },
+            {
+              "componentId": "LoginButton",
+              "componentType": "Button",
+              "content": {
+                "labelKey": "login_button",
+                "defaultValue": "Login"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "clientSideLogic": {
+    "onSubmit": "Call the login API. On success, store the JWT in localStorage and redirect to the admin dashboard. On failure, show an error message."
+  },
+  "apiCalls": [
+    {
+      "id": "adminLogin",
+      "endpoint": "/users/login",
+      "method": "POST",
+      "description": "Logs in an admin user and returns a JWT."
+    }
+  ]
+}

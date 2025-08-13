@@ -1,0 +1,72 @@
+{
+  "screenId": "EditProfileScreen",
+  "version": "1.0",
+  "description": "Allows a user to edit their own profile details.",
+  "layout": {
+    "type": "scrollView",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "edit_profile_title", "defaultValue": "Edit Profile" },
+      "leftAction": { "icon": "back", "action": "navigateBack" },
+      "rightAction": { "label": "Save", "action": "dispatchThunk", "payload": { "thunk": "updateProfile" } }
+    },
+    {
+      "componentId": "PhotoEditor",
+      "componentType": "ImageGridEditor",
+      "label": { "key": "photos_label", "defaultValue": "Your Photos" },
+      "dataSource": { "selector": "selectCurrentUserProfilePhotos" },
+      "maxAllowed": 6
+    },
+    {
+      "componentId": "BioEditor",
+      "componentType": "TextAreaInput",
+      "label": { "key": "bio_label", "defaultValue": "About Me" },
+      "dataSource": { "selector": "selectCurrentUserProfileBio" },
+      "maxLength": 500
+    },
+    {
+      "componentId": "DetailsSection",
+      "componentType": "Section",
+      "title": { "key": "details_title", "defaultValue": "Your Details" },
+      "children": [
+        {
+          "componentId": "HeightSelector",
+          "componentType": "Picker",
+          "label": { "key": "height_label", "defaultValue": "Height" },
+          "dataSource": { "selector": "selectCurrentUserProfileHeight" }
+        },
+        {
+          "componentId": "EducationSelector",
+          "componentType": "Picker",
+          "label": { "key": "education_label", "defaultValue": "Education" },
+          "dataSource": { "selector": "selectCurrentUserProfileEducation" }
+        }
+      ]
+    },
+    {
+      "componentId": "InterestsEditor",
+      "componentType": "MultiSelect",
+      "label": { "key": "interests_label", "defaultValue": "Your Interests" },
+      "dataSource": { "selector": "selectCurrentUserProfileInterests" },
+      "options": ["Travel", "Cooking", "Movies", "Sports"]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectCurrentUserProfile"],
+      "actions": ["updateProfile"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "updateProfile",
+      "endpoint": "/profile",
+      "method": "POST",
+      "description": "Updates the current user's profile with the new information."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "pageId": "TermsOfServicePage",
+  "version": "1.0",
+  "path": "/terms",
+  "description": "A static web page displaying the company's Terms of Service.",
+  "layout": {
+    "type": "standard-container",
+    "maxWidth": "800px"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "FLRVI Terms of Service"
+    },
+    {
+      "componentId": "LastUpdated",
+      "componentType": "Text",
+      "style": "caption",
+      "content": "Last Updated: 2025-08-09"
+    },
+    {
+      "componentId": "ContentBody",
+      "componentType": "MarkdownContent",
+      "source": "/content/terms_of_service.md",
+      "description": "The main body of the document, rendered from a Markdown file for easy maintenance."
+    },
+    {
+      "componentId": "Footer",
+      "componentType": "Footer",
+      "links": [
+        { "label": "Home", "path": "/" },
+        { "label": "Privacy Policy", "path": "/privacy" }
+      ]
+    }
+  ],
+  "apiCalls": []
+}

@@ -1,0 +1,44 @@
+{
+  "screenId": "BlockedUsersScreen",
+  "version": "1.0",
+  "description": "Allows a user to view and manage their list of blocked users.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "blocked_users_title", "defaultValue": "Blocked Users" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "BlockedUserList",
+      "componentType": "FlatList",
+      "renderItem": "BlockedUserListItem",
+      "dataSource": {
+        "selector": "selectBlockedUsers"
+      }
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectBlockedUsers"],
+      "actions": ["fetchBlockedUsers", "unblockUser"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchBlockedUsers",
+      "endpoint": "/users/blocked",
+      "method": "GET",
+      "description": "Fetches a list of users that the current user has blocked."
+    },
+    {
+      "id": "unblockUser",
+      "endpoint": "/users/unblock",
+      "method": "POST",
+      "description": "Unblocks a user."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "componentId": "Avatar",
+  "version": "1.0",
+  "description": "A reusable component for displaying a user's avatar image in a circular format.",
+  "props": [
+    {
+      "name": "source",
+      "type": "string (uri)",
+      "description": "The URL of the image to display."
+    },
+    {
+      "name": "size",
+      "type": "enum('small', 'medium', 'large')",
+      "defaultValue": "medium",
+      "description": "The size of the avatar."
+    },
+    {
+      "name": "isOnline",
+      "type": "boolean",
+      "defaultValue": false,
+      "description": "If true, an 'online' indicator badge will be displayed."
+    }
+  ],
+  "layout": {
+    "type": "container",
+    "style": {
+      "position": "relative"
+    }
+  },
+  "uiComponents": [
+    {
+      "componentId": "ProfileImage",
+      "componentType": "Image",
+      "dataSource": "props.source",
+      "style": {
+        "conditional": {
+          "if": "props.size === 'small'",
+          "true": { "width": 40, "height": 40, "borderRadius": 20 },
+          "false": {
+            "conditional": {
+              "if": "props.size === 'medium'",
+              "true": { "width": 60, "height": 60, "borderRadius": 30 },
+              "false": { "width": 80, "height": 80, "borderRadius": 40 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "componentId": "OnlineIndicator",
+      "componentType": "View",
+      "style": "online_indicator_badge",
+      "condition": "props.isOnline"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "screenId": "ProfileVerificationScreen",
+  "version": "1.0",
+  "description": "A screen that guides the user through the process of verifying their profile to increase trust and authenticity.",
+  "layout": {
+    "type": "stack",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "profile_verification_title", "defaultValue": "Verify Your Profile" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "InstructionsText",
+      "componentType": "Text",
+      "content": {
+        "key": "verification_instructions",
+        "defaultValue": "To verify your profile, please take a photo of yourself holding a piece of paper with your username written on it."
+      },
+      "style": "body"
+    },
+    {
+      "componentId": "ExampleImage",
+      "componentType": "Image",
+      "asset": "src/assets/images/verification_example.png"
+    },
+    {
+      "componentId": "TakePhotoButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "take_photo_button",
+        "defaultValue": "Take Photo"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "openCamera"
+        }
+      ]
+    },
+    {
+      "componentId": "SubmitButton",
+      "componentType": "Button",
+      "style": "secondary_large_fullWidth",
+      "content": {
+        "labelKey": "submit_for_review_button",
+        "defaultValue": "Submit for Review"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "submitVerificationPhoto"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectVerificationStatus"],
+      "actions": ["submitVerificationPhoto"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "submitVerificationPhoto",
+      "endpoint": "/profile/verify",
+      "method": "POST",
+      "description": "Submits a photo for profile verification."
+    }
+  ]
+}

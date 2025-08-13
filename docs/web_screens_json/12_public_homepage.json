@@ -1,0 +1,72 @@
+{
+  "pageId": "PublicHomepage",
+  "version": "1.0",
+  "path": "/",
+  "description": "The public-facing homepage for flrvi.com, which serves as a discovery feed for guests.",
+  "layout": {
+    "type": "standard-with-header"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "FLRVI",
+      "actions": [
+        { "label": "Sign Up", "path": "/signup" },
+        { "label": "Login", "path": "/login" }
+      ]
+    },
+    {
+      "componentId": "HeroSection",
+      "componentType": "View",
+      "style": "hero_banner",
+      "children": [
+        {
+          "componentId": "Title",
+          "componentType": "Text",
+          "tag": "h1",
+          "content": "Discover Your Connection in Thailand"
+        },
+        {
+          "componentId": "SearchFilters",
+          "componentType": "Form",
+          "description": "Basic filters available to guests."
+        }
+      ]
+    },
+    {
+      "componentId": "UserGrid",
+      "componentType": "Grid",
+      "columns": 4,
+      "renderItem": "ProfileCard",
+      "dataSource": {
+        "api": "fetchPublicProfiles"
+      }
+    },
+    {
+      "componentId": "SignUpPrompt",
+      "componentType": "View",
+      "description": "A sticky footer or modal that prompts guest users to sign up to interact.",
+      "children": [
+        {
+          "componentId": "PromptText",
+          "componentType": "Text",
+          "content": "Sign up to view full profiles and send messages!"
+        },
+        {
+          "componentId": "SignUpButton",
+          "componentType": "Button",
+          "label": "Create Free Account"
+        }
+      ]
+    }
+  ],
+  "apiCalls": [
+    {
+      "id": "fetchPublicProfiles",
+      "endpoint": "/api/v1/profiles/public",
+      "method": "GET",
+      "description": "Fetches a limited, public-safe list of user profiles to display to guests."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "endpoint": "/api/v1/profile/like/{userId}",
+  "method": "POST",
+  "description": "Schema definition for liking a user's profile.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The user's JWT for authentication.",
+        "required": true
+      }
+    ],
+    "pathParams": [
+      {
+        "name": "userId",
+        "type": "string",
+        "format": "objectId",
+        "description": "The ID of the user to like."
+      }
+    ]
+  },
+  "response": {
+    "200_OK": {
+      "type": "object",
+      "properties": {
+        "match": {
+          "type": "boolean",
+          "description": "Indicates if the 'like' resulted in a mutual match."
+        },
+        "msg": {
+          "type": "string",
+          "description": "A success message."
+        }
+      }
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    },
+    "404_NotFound": {
+      "description": "Returned if no user is found with the given ID."
+    }
+  }
+}

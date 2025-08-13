@@ -1,0 +1,75 @@
+{
+  "screenId": "WelcomeScreen",
+  "version": "1.0",
+  "description": "The initial screen a user sees. It serves as the gateway to the app, introducing the brand and providing options to register or log in.",
+  "layout": {
+    "type": "stack",
+    "alignment": "center",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "LogoImage",
+      "componentType": "Image",
+      "asset": "src/assets/images/flrvi_logo_large.png",
+      "style": {
+        "width": 150,
+        "height": 150,
+        "marginBottom": 20
+      },
+      "accessibilityLabel": "FLRVI Logo"
+    },
+    {
+      "componentId": "TaglineText",
+      "componentType": "Text",
+      "content": {
+        "key": "welcome_tagline",
+        "defaultValue": "Find Your Connection in Thailand."
+      },
+      "style": "h2_primary"
+    },
+    {
+      "componentId": "RegisterButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "register_button",
+        "defaultValue": "Create Account"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "navigateTo",
+          "payload": {
+            "targetScreen": "RegisterScreen"
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "LoginButton",
+      "componentType": "Button",
+      "style": "secondary_large_fullWidth",
+      "content": {
+        "labelKey": "login_button",
+        "defaultValue": "Login"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "navigateTo",
+          "payload": {
+            "targetScreen": "LoginScreen"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": [],
+      "actions": []
+    }
+  },
+  "apiCalls": []
+}

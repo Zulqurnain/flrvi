@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLRVI Admin Panel - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #E91E63;
+      --secondary-color: #FF9800;
+      --background-color: #fce4ec;
+      --white: #fff;
+      --text-color: #333;
+      --danger-color: #d32f2f;
+      --success-color: #4caf50;
+      --border-radius: 12px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background: var(--white);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(233, 30, 99, 0.1), transparent);
+      animation: wave 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+    }
+
+    .password-input {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .loading {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .spinner {
+      border: 3px solid rgba(233, 30, 99, 0.3);
+      border-top: 3px solid var(--primary-color);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .alert {
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .alert.error {
+      background: rgba(211, 47, 47, 0.1);
+      border: 1px solid rgba(211, 47, 47, 0.3);
+      color: var(--danger-color);
+    }
+
+    .alert.success {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      color: var(--success-color);
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: auto;
+    }
+
+    .features {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      position: relative;
+      z-index: 1;
+    }
+
+    .features h4 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      text-align: left;
+    }
+
+    .feature-list li {
+      padding: 5px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .feature-list li i {
+      color: var(--success-color);
+      margin-right: 8px;
+      width: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 25px;
+      }
+
+      .logo {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">FLRVI</div>
+    <div class="subtitle">Admin Control Panel</div>
+    
+    <div id="alert" class="alert"></div>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username or Email</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-input">
+          <input type="password" id="password" name="password" required>
+          <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+        </div>
+      </div>
+      
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" name="rememberMe">
+        <label for="rememberMe">Remember me for 30 days</label>
+      </div>
+      
+      <button type="submit" class="login-btn" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In to Admin Panel
+      </button>
+    </form>
+    
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Authenticating...</p>
+    </div>
+    
+    <div class="features">
+      <h4><i class="fas fa-crown"></i> Admin Features</h4>
+      <ul class="feature-list">
+        <li><i class="fas fa-users"></i> Complete User Management</li>
+        <li><i class="fas fa-palette"></i> UI/Theme Control for All Platforms</li>
+        <li><i class="fas fa-credit-card"></i> Payment & Subscription Management</li>
+        <li><i class="fas fa-chart-bar"></i> Analytics & Reporting</li>
+        <li><i class="fas fa-database"></i> Database Administration</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE_URL = 'http://localhost:5000/api/v1';
+    
+    // Password toggle functionality
+    document.getElementById('passwordToggle').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    // Alert functions
+    function showAlert(message, type = 'error') {
+      const alert = document.getElementById('alert');
+      alert.textContent = message;
+      alert.className = `alert ${type}`;
+      alert.style.display = 'block';
+      
+      setTimeout(() => {
+        alert.style.display = 'none';
+      }, 5000);
+    }
+
+    // Loading state
+    function setLoading(isLoading) {
+      const form = document.getElementById('loginForm');
+      const loading = document.getElementById('loading');
+      const loginBtn = document.getElementById('loginBtn');
+      
+      if (isLoading) {
+        form.style.display = 'none';
+        loading.style.display = 'block';
+        loginBtn.disabled = true;
+      } else {
+        form.style.display = 'block';
+        loading.style.display = 'none';
+        loginBtn.disabled = false;
+      }
+    }
+
+    // Login form submission
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+
+      if (!username || !password) {
+        showAlert('Please enter both username and password');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/admin/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Store token
+          const expirationDays = rememberMe ? 30 : 1;
+          const expiration = new Date();
+          expiration.setDate(expiration.getDate() + expirationDays);
+          
+          localStorage.setItem('adminToken', data.token);
+          localStorage.setItem('adminUser', JSON.stringify(data.admin));
+          
+          if (rememberMe) {
+            localStorage.setItem('adminTokenExpiration', expiration.toISOString());
+          }
+
+          showAlert(`Welcome back, ${data.admin.username}! Redirecting...`, 'success');
+          
+          setTimeout(() => {
+            window.location.href = '/admin-panel/dashboard.html';
+          }, 1500);
+        } else {
+          throw new Error(data.message || 'Login failed');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        showAlert(error.message || 'Login failed. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // Check if already logged in
+    window.addEventListener('load', () => {
+      const token = localStorage.getItem('adminToken');
+      const expiration = localStorage.getItem('adminTokenExpiration');
+      
+      if (token) {
+        if (!expiration || new Date() < new Date(expiration)) {
+          // Token still valid, redirect to dashboard
+          window.location.href = '/admin-panel/dashboard.html';
+        } else {
+          // Token expired, clear storage
+          localStorage.removeItem('adminToken');
+          localStorage.removeItem('adminUser');
+          localStorage.removeItem('adminTokenExpiration');
+        }
+      }
+    });
+
+    // Demo credentials hint (remove in production)
+    setTimeout(() => {
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      
+      // Pre-fill demo credentials for testing
+      if (!usernameInput.value) {
+        usernameInput.placeholder = 'Demo: raja';
+      }
+      if (!passwordInput.value) {
+        passwordInput.placeholder = 'Demo: 0987654321';
+      }
+    }, 2000);
+  </script>
+</body>
+</html>

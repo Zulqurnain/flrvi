@@ -1,0 +1,99 @@
+{
+  "screenId": "ProfileScreen",
+  "version": "1.0",
+  "description": "Displays the detailed profile of another user.",
+  "layout": {
+    "type": "scrollView"
+  },
+  "uiComponents": [
+    {
+      "componentId": "PhotoCarousel",
+      "componentType": "ImageCarousel",
+      "dataSource": {
+        "selector": "selectUserProfilePhotos"
+      }
+    },
+    {
+      "componentId": "ProfileHeader",
+      "componentType": "View",
+      "style": "profile_header",
+      "children": [
+        {
+          "componentId": "Name",
+          "componentType": "Text",
+          "content": {
+            "selector": "selectUserProfileName"
+          },
+          "style": "h1"
+        },
+        {
+          "componentId": "AgeAndLocation",
+          "componentType": "Text",
+          "content": {
+            "template": "{age}, {location}",
+            "selectors": {
+              "age": "selectUserProfileAge",
+              "location": "selectUserProfileLocation"
+            }
+          },
+          "style": "subheading"
+        }
+      ]
+    },
+    {
+      "componentId": "BioSection",
+      "componentType": "Section",
+      "title": {
+        "key": "bio_title",
+        "defaultValue": "About Me"
+      },
+      "children": [
+        {
+          "componentId": "BioText",
+          "componentType": "Text",
+          "content": {
+            "selector": "selectUserProfileBio"
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "LikeButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "like_button",
+        "defaultValue": "Like"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "likeUserProfile"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectUserProfile", "selectUserProfileLikeStatus"],
+      "actions": ["fetchUserProfile", "likeUserProfile"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchUserProfile",
+      "endpoint": "/profile/user/{userId}",
+      "method": "GET",
+      "description": "Fetches the detailed profile of a specific user."
+    },
+    {
+      "id": "likeUserProfile",
+      "endpoint": "/profile/like/{userId}",
+      "method": "POST",
+      "description": "Marks a user as 'liked'."
+    }
+  ]
+}

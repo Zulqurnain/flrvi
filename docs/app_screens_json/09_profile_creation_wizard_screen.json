@@ -1,0 +1,66 @@
+{
+  "screenId": "ProfileCreationWizardScreen",
+  "version": "1.0",
+  "description": "A multi-step wizard to guide new users through completing their initial profile setup after registration.",
+  "layout": {
+    "type": "paginated-wizard"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "title": "Basic Info",
+      "uiComponents": [
+        {
+          "componentId": "AgeInput",
+          "componentType": "DatePicker",
+          "label": { "key": "age_label", "defaultValue": "Your Birthday" }
+        },
+        {
+          "componentId": "GenderSelector",
+          "componentType": "SegmentedControl",
+          "label": { "key": "gender_label", "defaultValue": "Your Gender" },
+          "options": ["Man", "Woman", "Other"]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "title": "Add Photos",
+      "uiComponents": [
+        {
+          "componentId": "PhotoUploader",
+          "componentType": "ImageGridUploader",
+          "minRequired": 1,
+          "maxAllowed": 6
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "title": "Your Location",
+      "uiComponents": [
+        {
+          "componentId": "LocationPermissionButton",
+          "componentType": "Button",
+          "content": { "labelKey": "enable_location", "defaultValue": "Enable Location Services" },
+          "userActions": [
+            {
+              "trigger": "onPress",
+              "action": "requestPermission",
+              "payload": { "permission": "location" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "userFlow": "After registration, the user is taken through these three steps. Upon completion, their profile is created/updated, and they are navigated to the Home Screen.",
+  "apiCalls": [
+    {
+      "id": "updateProfile",
+      "endpoint": "/profile",
+      "method": "POST",
+      "description": "Updates the user's profile with the information gathered from the wizard."
+    }
+  ]
+}

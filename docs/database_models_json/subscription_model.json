@@ -1,0 +1,52 @@
+{
+  "modelName": "Subscription",
+  "collectionName": "subscriptions",
+  "description": "Represents a user's premium subscription.",
+  "schema": {
+    "user": {
+      "type": "ObjectId",
+      "ref": "User",
+      "required": true,
+      "description": "A reference to the subscribed user."
+    },
+    "plan": {
+      "type": "String",
+      "required": true,
+      "description": "The Omise plan ID for the subscription."
+    },
+    "omiseCustomerId": {
+      "type": "String",
+      "required": true,
+      "description": "The customer ID from the Omise payment gateway."
+    },
+    "omiseSubscriptionId": {
+      "type": "String",
+      "required": true,
+      "description": "The subscription ID from the Omise payment gateway."
+    },
+    "status": {
+      "type": "String",
+      "enum": ["active", "canceled", "past_due"],
+      "required": true,
+      "description": "The current status of the subscription."
+    },
+    "startDate": {
+      "type": "Date",
+      "default": "Date.now",
+      "description": "The date the subscription was created."
+    },
+    "endDate": {
+      "type": "Date",
+      "description": "The date the subscription was canceled or expired."
+    }
+  },
+  "indexes": [
+    {
+      "field": "user"
+    },
+    {
+      "field": "omiseSubscriptionId",
+      "unique": true
+    }
+  ]
+}

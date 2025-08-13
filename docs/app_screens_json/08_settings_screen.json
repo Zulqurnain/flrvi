@@ -1,0 +1,79 @@
+{
+  "screenId": "SettingsScreen",
+  "version": "1.0",
+  "description": "Allows users to manage their account, subscription, and app settings.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": {
+        "key": "settings_title",
+        "defaultValue": "Settings"
+      }
+    },
+    {
+      "componentId": "SettingsList",
+      "componentType": "ListView",
+      "sections": [
+        {
+          "title": "Account",
+          "items": [
+            {
+              "labelKey": "edit_profile",
+              "defaultValue": "Edit Profile",
+              "action": "navigateTo",
+              "payload": { "targetScreen": "EditProfileScreen" }
+            },
+            {
+              "labelKey": "manage_subscription",
+              "defaultValue": "Manage Subscription",
+              "action": "navigateTo",
+              "payload": { "targetScreen": "SubscriptionScreen" }
+            }
+          ]
+        },
+        {
+          "title": "App",
+          "items": [
+            {
+              "labelKey": "notifications",
+              "defaultValue": "Notifications",
+              "action": "navigateTo",
+              "payload": { "targetScreen": "NotificationSettingsScreen" }
+            },
+            {
+              "labelKey": "language",
+              "defaultValue": "Language",
+              "action": "navigateTo",
+              "payload": { "targetScreen": "LanguageSettingsScreen" }
+            }
+          ]
+        },
+        {
+          "title": "General",
+          "items": [
+            {
+              "labelKey": "logout",
+              "defaultValue": "Logout",
+              "action": "dispatch",
+              "payload": {
+                "actionCreator": "logoutUser"
+              },
+              "style": "destructive"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": [],
+      "actions": ["logoutUser"]
+    }
+  },
+  "apiCalls": []
+}

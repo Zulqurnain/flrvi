@@ -1,0 +1,123 @@
+{
+  "screenId": "RegisterScreen",
+  "version": "1.0",
+  "description": "Allows a new user to create an account using their email and password.",
+  "layout": {
+    "type": "scrollView",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "ScreenTitle",
+      "componentType": "Text",
+      "content": {
+        "key": "register_title",
+        "defaultValue": "Create Your Account"
+      },
+      "style": "h1_center"
+    },
+    {
+      "componentId": "NameInput",
+      "componentType": "TextInput",
+      "label": {
+        "key": "name_label",
+        "defaultValue": "Name"
+      },
+      "placeholder": {
+        "key": "name_placeholder",
+        "defaultValue": "Enter your name"
+      },
+      "validation": {
+        "rules": ["required", "minLength:2"],
+        "errorMessages": {
+          "required": "name_required_error",
+          "minLength": "name_minLength_error"
+        }
+      }
+    },
+    {
+      "componentId": "EmailInput",
+      "componentType": "TextInput",
+      "label": {
+        "key": "email_label",
+        "defaultValue": "Email"
+      },
+      "placeholder": {
+        "key": "email_placeholder",
+        "defaultValue": "Enter your email"
+      },
+      "keyboardType": "email-address",
+      "validation": {
+        "rules": ["required", "isEmail"],
+        "errorMessages": {
+          "required": "email_required_error",
+          "isEmail": "email_invalid_error"
+        }
+      }
+    },
+    {
+      "componentId": "PasswordInput",
+      "componentType": "TextInput",
+      "label": {
+        "key": "password_label",
+        "defaultValue": "Password"
+      },
+      "placeholder": {
+        "key": "password_placeholder",
+        "defaultValue": "Enter your password"
+      },
+      "isSecure": true,
+      "validation": {
+        "rules": ["required", "minLength:8"],
+        "errorMessages": {
+          "required": "password_required_error",
+          "minLength": "password_minLength_error"
+        }
+      }
+    },
+    {
+      "componentId": "RegisterButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "register_button",
+        "defaultValue": "Register"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "registerUser",
+            "onSuccess": {
+              "action": "navigateTo",
+              "payload": {
+                "targetScreen": "ProfileCreationWizard"
+              }
+            },
+            "onError": {
+              "action": "showAlert",
+              "payload": {
+                "messageKey": "register_error"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectUserRegistrationStatus"],
+      "actions": ["registerUser"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "registerUser",
+      "endpoint": "/users/register",
+      "method": "POST",
+      "description": "Registers a new user and returns a JWT."
+    }
+  ]
+}

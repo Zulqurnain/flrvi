@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your FLRVI Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #E91E63;
+      --secondary-color: #FF9800;
+      --background-color: #fce4ec;
+      --text-color: #333;
+      --white: #fff;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    h1 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #666;
+      font-weight: 500;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #d81b60;
+    }
+    .login-link {
+      margin-top: 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .login-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    .error-message {
+      color: #d32f2f;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+    .success-message {
+      color: #4caf50;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create Your FLRVI Account</h1>
+    <form id="signup-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        <div class="error-message" id="name-error"></div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <div class="error-message" id="email-error"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <div class="error-message" id="password-error"></div>
+      </div>
+      <button type="submit">Sign Up</button>
+      <div class="success-message" id="success-message"></div>
+      <div class="error-message" id="general-error"></div>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="/frontend/login.html">Login here</a>
+    </div>
+  </div>
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Clear previous messages
+      document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+      document.getElementById('success-message').style.display = 'none';
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      try {
+        const response = await fetch('/api/v1/users/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          // Store JWT token
+          localStorage.setItem('token', data.token);
+          document.getElementById('success-message').textContent = 'Account created successfully! Redirecting...';
+          document.getElementById('success-message').style.display = 'block';
+          
+          // Redirect to profile creation or dashboard
+          setTimeout(() => {
+            window.location.href = '/mobile/flrvi_app/src/screens/ProfileCreationWizardScreen.tsx';
+          }, 2000);
+        } else {
+          // Handle validation errors
+          if (data.errors) {
+            Object.keys(data.errors).forEach(field => {
+              const errorElement = document.getElementById(`${field}-error`);
+              if (errorElement) {
+                errorElement.textContent = data.errors[field];
+                errorElement.style.display = 'block';
+              }
+            });
+          } else {
+            document.getElementById('general-error').textContent = data.msg || 'Registration failed';
+            document.getElementById('general-error').style.display = 'block';
+          }
+        }
+      } catch (error) {
+        document.getElementById('general-error').textContent = 'Network error. Please try again.';
+        document.getElementById('general-error').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

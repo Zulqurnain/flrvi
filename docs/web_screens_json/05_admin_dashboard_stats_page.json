@@ -1,0 +1,80 @@
+{
+  "pageId": "AdminDashboardStatsPage",
+  "version": "1.0",
+  "path": "/admin/dashboard/stats",
+  "description": "The main dashboard page for administrators, displaying key metrics and statistics about the application's health and growth.",
+  "layout": {
+    "type": "sidebar-main"
+  },
+  "uiComponents": [
+    {
+      "componentId": "StatsGrid",
+      "componentType": "Grid",
+      "columns": 4,
+      "children": [
+        {
+          "componentId": "TotalUsersCard",
+          "componentType": "StatCard",
+          "label": "Total Users",
+          "dataSource": { "api": "fetchDashboardStats", "key": "totalUsers" }
+        },
+        {
+          "componentId": "NewUsersTodayCard",
+          "componentType": "StatCard",
+          "label": "New Users (24h)",
+          "dataSource": { "api": "fetchDashboardStats", "key": "newUsersToday" }
+        },
+        {
+          "componentId": "ActiveSubscriptionsCard",
+          "componentType": "StatCard",
+          "label": "Active Subscriptions",
+          "dataSource": { "api": "fetchDashboardStats", "key": "activeSubscriptions" }
+        },
+        {
+          "componentId": "MonthlyRevenueCard",
+          "componentType": "StatCard",
+          "label": "Monthly Revenue (THB)",
+          "dataSource": { "api": "fetchDashboardStats", "key": "monthlyRevenue" }
+        }
+      ]
+    },
+    {
+      "componentId": "UserGrowthChart",
+      "componentType": "Chart",
+      "chartType": "line",
+      "title": "User Growth Over Time",
+      "dataSource": {
+        "api": "fetchUserGrowthData"
+      }
+    },
+    {
+      "componentId": "RevenueChart",
+      "componentType": "Chart",
+      "chartType": "bar",
+      "title": "Revenue by Month",
+      "dataSource": {
+        "api": "fetchRevenueData"
+      }
+    }
+  ],
+  "apiCalls": [
+    {
+      "id": "fetchDashboardStats",
+      "endpoint": "/admin/stats/summary",
+      "method": "GET",
+      "description": "Fetches a summary of key application statistics."
+    },
+    {
+      "id": "fetchUserGrowthData",
+      "endpoint": "/admin/stats/user-growth",
+      "method": "GET",
+      "description": "Fetches time-series data for user growth."
+    },
+    {
+      "id": "fetchRevenueData",
+      "endpoint": "/admin/stats/revenue",
+      "method": "GET",
+      "description": "Fetches time-series data for revenue."
+    }
+  ]
+}

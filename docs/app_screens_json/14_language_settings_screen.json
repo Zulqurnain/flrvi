@@ -1,0 +1,41 @@
+{
+  "screenId": "LanguageSettingsScreen",
+  "version": "1.0",
+  "description": "Allows users to change the display language of the application.",
+  "layout": {
+    "type": "stack",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "language_title", "defaultValue": "Language" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "LanguageList",
+      "componentType": "RadioGroup",
+      "dataSource": {
+        "selector": "selectAvailableLanguages"
+      },
+      "selectedValue": {
+        "selector": "selectCurrentLanguage"
+      },
+      "userActions": [
+        {
+          "trigger": "onValueChange",
+          "action": "dispatch",
+          "payload": { "actionCreator": "setLanguage" }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectAvailableLanguages", "selectCurrentLanguage"],
+      "actions": ["setLanguage"]
+    }
+  },
+  "apiCalls": []
+}

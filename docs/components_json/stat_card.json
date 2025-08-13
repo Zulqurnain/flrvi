@@ -1,0 +1,58 @@
+{
+  "componentId": "StatCard",
+  "version": "1.0",
+  "description": "A reusable card component for displaying a single key metric on the admin dashboard.",
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "description": "The label for the statistic (e.g., 'Total Users')."
+    },
+    {
+      "name": "value",
+      "type": "string | number",
+      "description": "The value of the statistic to display."
+    },
+    {
+      "name": "isLoading",
+      "type": "boolean",
+      "defaultValue": false,
+      "description": "If true, a loading skeleton will be displayed instead of the value."
+    }
+  ],
+  "layout": {
+    "type": "stack",
+    "padding": 24,
+    "borderRadius": 12,
+    "backgroundColor": "#FFFFFF",
+    "boxShadow": "medium"
+  },
+  "uiComponents": [
+    {
+      "componentId": "LabelText",
+      "componentType": "Text",
+      "content": "props.label",
+      "style": "subheading_secondary"
+    },
+    {
+      "componentId": "ValueDisplay",
+      "componentType": "View",
+      "style": { "marginTop": 8 },
+      "children": [
+        {
+          "componentId": "ValueText",
+          "componentType": "Text",
+          "content": "props.value",
+          "style": "h1",
+          "condition": "!props.isLoading"
+        },
+        {
+          "componentId": "LoadingSkeleton",
+          "componentType": "Skeleton",
+          "style": { "width": "80%", "height": 32 },
+          "condition": "props.isLoading"
+        }
+      ]
+    }
+  ]
+}

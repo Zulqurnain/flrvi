@@ -1,0 +1,76 @@
+{
+  "screenId": "NotificationSettingsScreen",
+  "version": "1.0",
+  "description": "Allows users to configure their push notification preferences.",
+  "layout": {
+    "type": "stack",
+    "padding": 24
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "notifications_title", "defaultValue": "Notifications" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "SettingsList",
+      "componentType": "ListView",
+      "items": [
+        {
+          "componentId": "NewMessagesToggle",
+          "componentType": "ToggleSwitch",
+          "label": { "key": "new_messages_label", "defaultValue": "New Messages" },
+          "dataSource": { "selector": "selectNotificationSettingNewMessages" },
+          "userActions": [
+            {
+              "trigger": "onValueChange",
+              "action": "dispatch",
+              "payload": { "actionCreator": "updateNotificationSetting" }
+            }
+          ]
+        },
+        {
+          "componentId": "NewLikesToggle",
+          "componentType": "ToggleSwitch",
+          "label": { "key": "new_likes_label", "defaultValue": "New Likes" },
+          "dataSource": { "selector": "selectNotificationSettingNewLikes" },
+          "userActions": [
+            {
+              "trigger": "onValueChange",
+              "action": "dispatch",
+              "payload": { "actionCreator": "updateNotificationSetting" }
+            }
+          ]
+        },
+        {
+          "componentId": "AppUpdatesToggle",
+          "componentType": "ToggleSwitch",
+          "label": { "key": "app_updates_label", "defaultValue": "App Updates & News" },
+          "dataSource": { "selector": "selectNotificationSettingAppUpdates" },
+          "userActions": [
+            {
+              "trigger": "onValueChange",
+              "action": "dispatch",
+              "payload": { "actionCreator": "updateNotificationSetting" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectNotificationSettings"],
+      "actions": ["updateNotificationSetting"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "updateNotificationSettings",
+      "endpoint": "/users/settings/notifications",
+      "method": "POST",
+      "description": "Updates the user's notification preferences on the server."
+    }
+  ]
+}

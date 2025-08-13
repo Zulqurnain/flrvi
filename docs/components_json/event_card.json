@@ -1,0 +1,92 @@
+{
+  "componentId": "EventCard",
+  "version": "1.0",
+  "description": "A reusable card component to display a summary of a local event.",
+  "props": [
+    {
+      "name": "event",
+      "type": "object",
+      "description": "The event data to display."
+    },
+    {
+      "name": "onPress",
+      "type": "function",
+      "description": "Function to execute when the card is tapped."
+    }
+  ],
+  "layout": {
+    "type": "stack",
+    "cornerRadius": 12,
+    "boxShadow": "medium",
+    "marginBottom": 16
+  },
+  "uiComponents": [
+    {
+      "componentId": "EventImage",
+      "componentType": "Image",
+      "dataSource": "event.imageUrl",
+      "style": {
+        "height": 150,
+        "borderTopLeftRadius": 12,
+        "borderTopRightRadius": 12
+      }
+    },
+    {
+      "componentId": "CardBody",
+      "componentType": "View",
+      "style": "card_body_padding",
+      "children": [
+        {
+          "componentId": "EventTitle",
+          "componentType": "Text",
+          "content": "event.title",
+          "style": "h3"
+        },
+        {
+          "componentId": "EventDate",
+          "componentType": "Text",
+          "content": "event.date",
+          "style": "caption_secondary"
+        },
+        {
+          "componentId": "EventLocation",
+          "componentType": "Text",
+          "content": "event.location",
+          "style": "caption_secondary"
+        }
+      ]
+    },
+    {
+      "componentId": "CardFooter",
+      "componentType": "View",
+      "style": "card_footer_row_space_between",
+      "children": [
+        {
+          "componentId": "AttendeePreview",
+          "componentType": "AvatarStack",
+          "dataSource": "event.attendeePreview"
+        },
+        {
+          "componentId": "InterestedCount",
+          "componentType": "Text",
+          "content": {
+            "template": "{count} interested",
+            "values": {
+              "count": "event.interestedCount"
+            }
+          },
+          "style": "caption_bold"
+        }
+      ]
+    }
+  ],
+  "userActions": [
+    {
+      "trigger": "onPress",
+      "action": "props.onPress",
+      "payload": {
+        "eventId": "event.id"
+      }
+    }
+  ]
+}

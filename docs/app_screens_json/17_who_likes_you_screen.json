@@ -1,0 +1,63 @@
+{
+  "screenId": "WhoLikesYouScreen",
+  "version": "1.0",
+  "description": "A premium screen that displays a grid of users who have liked the current user.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": { "key": "who_likes_you_title", "defaultValue": "Who Likes You" },
+      "leftAction": { "icon": "back", "action": "navigateBack" }
+    },
+    {
+      "componentId": "LikesGrid",
+      "componentType": "FlatList",
+      "style": "grid_2_columns",
+      "renderItem": "ProfileCard",
+      "dataSource": {
+        "selector": "selectLikedByUsers"
+      }
+    },
+    {
+      "componentId": "UpgradePrompt",
+      "componentType": "View",
+      "condition": "!user.isPremium",
+      "children": [
+        {
+          "componentId": "PromptText",
+          "componentType": "Text",
+          "content": { "key": "upgrade_to_see_likes", "defaultValue": "Upgrade to Premium to see who likes you!" }
+        },
+        {
+          "componentId": "UpgradeButton",
+          "componentType": "Button",
+          "content": { "labelKey": "upgrade_button", "defaultValue": "Upgrade" },
+          "userActions": [
+            {
+              "trigger": "onPress",
+              "action": "navigateTo",
+              "payload": { "targetScreen": "SubscriptionScreen" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectLikedByUsers", "selectCurrentUser"],
+      "actions": ["fetchLikedByUsers"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchLikedByUsers",
+      "endpoint": "/profile/likes",
+      "method": "GET",
+      "description": "Fetches a list of users who have liked the current user."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "endpoint": "/api/v1/users/login",
+  "method": "POST",
+  "description": "Schema definition for the user login endpoint.",
+  "request": {
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string",
+        "description": "The user's email address.",
+        "format": "email"
+      },
+      "password": {
+        "type": "string",
+        "description": "The user's password."
+      }
+    },
+    "required": ["email", "password"]
+  },
+  "response": {
+    "200_OK": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "A JSON Web Token (JWT) for authenticating subsequent requests."
+        }
+      },
+      "required": ["token"]
+    },
+    "400_BadRequest": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "An error message for invalid credentials.",
+          "examples": ["Invalid credentials"]
+        }
+      }
+    }
+  }
+}

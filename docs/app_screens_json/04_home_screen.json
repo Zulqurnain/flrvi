@@ -1,0 +1,57 @@
+{
+  "screenId": "HomeScreen",
+  "version": "1.0",
+  "description": "The main discovery screen where users can browse potential matches.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": {
+        "key": "home_title",
+        "defaultValue": "Discover"
+      },
+      "rightAction": {
+        "icon": "filter",
+        "action": "navigateTo",
+        "payload": {
+          "targetScreen": "FilterModal"
+        }
+      }
+    },
+    {
+      "componentId": "UserGrid",
+      "componentType": "FlatList",
+      "style": "grid_2_columns",
+      "renderItem": "ProfileCard",
+      "dataSource": {
+        "selector": "selectFilteredProfiles"
+      },
+      "userActions": [
+        {
+          "trigger": "onEndReached",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "fetchMoreProfiles"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectFilteredProfiles", "selectProfileLoadingStatus"],
+      "actions": ["fetchProfiles", "fetchMoreProfiles"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchProfiles",
+      "endpoint": "/profile/search",
+      "method": "GET",
+      "description": "Fetches the initial list of user profiles based on the current filters."
+    }
+  ]
+}

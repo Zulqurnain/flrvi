@@ -1,0 +1,55 @@
+{
+  "modelName": "User",
+  "collectionName": "users",
+  "description": "Represents a user account in the system.",
+  "schema": {
+    "name": {
+      "type": "String",
+      "required": true,
+      "trim": true,
+      "description": "The user's full name."
+    },
+    "email": {
+      "type": "String",
+      "required": true,
+      "unique": true,
+      "lowercase": true,
+      "trim": true,
+      "description": "The user's email address, used for login and communication."
+    },
+    "password": {
+      "type": "String",
+      "required": true,
+      "description": "The user's hashed password."
+    },
+    "last_active": {
+      "type": "Date",
+      "default": "Date.now",
+      "description": "Timestamp of the user's last activity, used for sorting."
+    },
+    "isPremium": {
+      "type": "Boolean",
+      "default": false,
+      "description": "Flag indicating if the user has an active premium subscription."
+    },
+    "role": {
+      "type": "String",
+      "enum": ["user", "admin"],
+      "default": "user",
+      "description": "The user's role in the system."
+    }
+  },
+  "indexes": [
+    {
+      "field": "email",
+      "unique": true
+    },
+    {
+      "field": "last_active",
+      "order": -1
+    }
+  ],
+  "methods": {
+    "pre_save": "A pre-save hook will be used to hash the password using bcryptjs before it is saved to the database."
+  }
+}

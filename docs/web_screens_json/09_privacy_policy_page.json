@@ -1,0 +1,38 @@
+{
+  "pageId": "PrivacyPolicyPage",
+  "version": "1.0",
+  "path": "/privacy",
+  "description": "A static web page displaying the company's Privacy Policy.",
+  "layout": {
+    "type": "standard-container",
+    "maxWidth": "800px"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "FLRVI Privacy Policy"
+    },
+    {
+      "componentId": "LastUpdated",
+      "componentType": "Text",
+      "style": "caption",
+      "content": "Last Updated: 2025-08-09"
+    },
+    {
+      "componentId": "ContentBody",
+      "componentType": "MarkdownContent",
+      "source": "/content/privacy_policy.md",
+      "description": "The main body of the document, rendered from a Markdown file for easy maintenance."
+    },
+    {
+      "componentId": "Footer",
+      "componentType": "Footer",
+      "links": [
+        { "label": "Home", "path": "/" },
+        { "label": "Terms of Service", "path": "/terms" }
+      ]
+    }
+  ],
+  "apiCalls": []
+}

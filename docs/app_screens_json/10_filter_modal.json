@@ -1,0 +1,88 @@
+{
+  "screenId": "FilterModal",
+  "version": "1.0",
+  "description": "A modal screen that allows users to filter the profiles displayed on the Home Screen.",
+  "layout": {
+    "type": "modal"
+  },
+  "uiComponents": [
+    {
+      "componentId": "ModalTitle",
+      "componentType": "Text",
+      "content": {
+        "key": "filter_title",
+        "defaultValue": "Filter Profiles"
+      },
+      "style": "h1"
+    },
+    {
+      "componentId": "AgeRangeSlider",
+      "componentType": "RangeSlider",
+      "label": {
+        "key": "age_range_label",
+        "defaultValue": "Age Range"
+      },
+      "min": 18,
+      "max": 65,
+      "defaultValue": [20, 45]
+    },
+    {
+      "componentId": "GenderSelector",
+      "componentType": "SegmentedControl",
+      "label": {
+        "key": "gender_label",
+        "defaultValue": "Show Me"
+      },
+      "options": ["Men", "Women", "Everyone"]
+    },
+    {
+      "componentId": "PremiumFiltersSection",
+      "componentType": "View",
+      "condition": "user.isPremium",
+      "children": [
+        {
+          "componentId": "LocationInput",
+          "componentType": "TextInput",
+          "label": {
+            "key": "location_label",
+            "defaultValue": "Location"
+          }
+        },
+        {
+          "componentId": "InterestsSelector",
+          "componentType": "MultiSelect",
+          "label": {
+            "key": "interests_label",
+            "defaultValue": "Interests"
+          },
+          "options": ["Travel", "Cooking", "Movies", "Sports"]
+        }
+      ]
+    },
+    {
+      "componentId": "ApplyButton",
+      "componentType": "Button",
+      "style": "primary_large_fullWidth",
+      "content": {
+        "labelKey": "apply_filters_button",
+        "defaultValue": "Apply Filters"
+      },
+      "userActions": [
+        {
+          "trigger": "onPress",
+          "action": "dispatchThunk",
+          "payload": {
+            "thunk": "applyFiltersAndFetchProfiles"
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectCurrentUser", "selectCurrentFilters"],
+      "actions": ["applyFiltersAndFetchProfiles"]
+    }
+  },
+  "apiCalls": []
+}

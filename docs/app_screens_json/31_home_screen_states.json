@@ -1,0 +1,80 @@
+{
+  "screenId": "HomeScreen",
+  "version": "1.0",
+  "description": "Defines the various UI states for the Home Screen (Discover Feed).",
+  "states": [
+    {
+      "stateName": "Loading",
+      "trigger": "Initial data fetch is in progress (`selectProfileLoadingStatus` is 'loading').",
+      "description": "The state shown when the app is first loading the user feed.",
+      "uiComponents": [
+        {
+          "componentId": "Header",
+          "componentType": "Header",
+          "title": { "key": "home_title", "defaultValue": "Discover" },
+          "rightAction": { "icon": "filter", "disabled": true }
+        },
+        {
+          "componentId": "LoadingSkeleton",
+          "componentType": "GridView",
+          "itemCount": 8,
+          "renderItem": "ProfileCardSkeleton"
+        }
+      ]
+    },
+    {
+      "stateName": "Error",
+      "trigger": "The initial data fetch has failed (`selectProfileLoadingStatus` is 'failed').",
+      "description": "The state shown when the user feed fails to load due to a network or server error.",
+      "uiComponents": [
+        {
+          "componentId": "Header",
+          "componentType": "Header",
+          "title": { "key": "home_title", "defaultValue": "Discover" }
+        },
+        {
+          "componentId": "ErrorStateView",
+          "componentType": "View",
+          "style": "centered_full_screen",
+          "children": [
+            {
+              "componentId": "ErrorIcon",
+              "componentType": "Icon",
+              "iconName": "cloud-off"
+            },
+            {
+              "componentId": "ErrorTitle",
+              "componentType": "Text",
+              "content": { "key": "error_title", "defaultValue": "Something Went Wrong" },
+              "style": "h2_center"
+            },
+            {
+              "componentId": "ErrorMessage",
+              "componentType": "Text",
+              "content": { "key": "error_message_feed", "defaultValue": "We couldn't load profiles right now. Please check your connection and try again." },
+              "style": "body_center"
+            },
+            {
+              "componentId": "RetryButton",
+              "componentType": "Button",
+              "content": { "labelKey": "retry_button", "defaultValue": "Try Again" },
+              "userActions": [{ "trigger": "onPress", "action": "dispatchThunk", "payload": { "thunk": "fetchProfiles" } }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stateName": "Empty",
+      "trigger": "The data fetch was successful, but no profiles match the user's filters.",
+      "description": "The state shown when the user feed is empty.",
+      "reference": "docs/app_screens_json/25_empty_states.json#HomeScreen_Empty"
+    },
+    {
+      "stateName": "Ideal",
+      "trigger": "The data fetch was successful and there are profiles to display.",
+      "description": "The ideal state where the user can browse profiles.",
+      "reference": "docs/app_screens_json/04_home_screen.json"
+    }
+  ]
+}

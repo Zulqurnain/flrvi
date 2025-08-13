@@ -1,0 +1,70 @@
+{
+  "componentId": "ConversationListItem",
+  "version": "1.0",
+  "description": "A reusable component for displaying a single conversation in a list.",
+  "props": [
+    {
+      "name": "conversation",
+      "type": "object",
+      "description": "The conversation data to display."
+    },
+    {
+      "name": "onPress",
+      "type": "function",
+      "description": "Function to execute when the item is tapped."
+    }
+  ],
+  "layout": {
+    "type": "row",
+    "alignment": "center",
+    "padding": 16
+  },
+  "uiComponents": [
+    {
+      "componentId": "Avatar",
+      "componentType": "Image",
+      "dataSource": "conversation.recipient.avatar",
+      "style": {
+        "width": 50,
+        "height": 50,
+        "borderRadius": 25,
+        "marginRight": 12
+      }
+    },
+    {
+      "componentId": "ContentContainer",
+      "componentType": "View",
+      "style": "flex_1",
+      "children": [
+        {
+          "componentId": "RecipientName",
+          "componentType": "Text",
+          "content": "conversation.recipient.name",
+          "style": "h3"
+        },
+        {
+          "componentId": "LastMessage",
+          "componentType": "Text",
+          "content": "conversation.lastMessage.text",
+          "style": "body_secondary",
+          "numberOfLines": 1
+        }
+      ]
+    },
+    {
+      "componentId": "Timestamp",
+      "componentType": "Text",
+      "content": "conversation.lastMessage.timestamp",
+      "style": "caption"
+    }
+  ],
+  "userActions": [
+    {
+      "trigger": "onPress",
+      "action": "props.onPress",
+      "payload": {
+        "conversationId": "conversation.id"
+      }
+    }
+  ]
+}

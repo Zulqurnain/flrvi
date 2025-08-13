@@ -1,0 +1,108 @@
+{
+  "screenId": "ChatScreen",
+  "version": "1.0",
+  "description": "Allows two users to have a real-time, one-on-one conversation.",
+  "layout": {
+    "type": "stack"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": {
+        "selector": "selectRecipientName"
+      },
+      "leftAction": {
+        "icon": "back",
+        "action": "navigateBack"
+      }
+    },
+    {
+      "componentId": "MessageList",
+      "componentType": "FlatList",
+      "inverted": true,
+      "renderItem": "MessageBubble",
+      "dataSource": {
+        "selector": "selectCurrentConversationMessages"
+      }
+    },
+    {
+      "componentId": "MessageInputContainer",
+      "componentType": "View",
+      "style": "message_input_container",
+      "children": [
+        {
+          "componentId": "TextInput",
+          "componentType": "TextInput",
+          "placeholder": {
+            "key": "type_a_message",
+            "defaultValue": "Type a message..."
+          }
+        },
+        {
+          "componentId": "SendOrRecordButton",
+          "componentType": "ConditionalButton",
+          "condition": "textInput.value.length > 0",
+          "true": {
+            "componentType": "IconButton",
+            "icon": "send",
+            "userActions": [{
+              "trigger": "onPress",
+              "action": "dispatchThunk",
+              "payload": { "thunk": "sendMessage" }
+            }]
+          },
+          "false": {
+            "componentType": "IconButton",
+            "icon": "mic",
+            "userActions": [{
+              "trigger": "onPressIn",
+              "action": "startRecordingVoiceNote"
+            }, {
+              "trigger": "onPressOut",
+              "action": "dispatchThunk",
+              "payload": { "thunk": "sendVoiceNote" }
+            }]
+          }
+        }
+      ]
+    }
+  ],
+  "stateManagement": {
+    "redux": {
+      "selectors": ["selectCurrentConversationMessages", "selectRecipientName"],
+      "actions": ["fetchMessages", "sendMessage", "receiveMessage"]
+    }
+  },
+  "apiCalls": [
+    {
+      "id": "fetchMessages",
+      "endpoint": "/chat/messages/{conversationId}",
+      "method": "GET",
+      "description": "Fetches the message history for a specific conversation."
+    },
+    {
+      "id": "sendMessage",
+      "endpoint": "/chat/messages",
+      "method": "POST",
+      "description": "Sends a new text message in a conversation."
+    },
+    {
+      "id": "sendVoiceNote",
+      "endpoint": "/chat/voice-notes",
+      "method": "POST",
+      "description": "Uploads a voice note and sends it as a message in a conversation."
+    }
+  ],
+  "webSockets": {
+    "events": [
+      {
+        "eventName": "newMessage",
+        "action": "dispatch",
+        "payload": {
+          "actionCreator": "receiveMessage"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "endpoint": "/api/v1/profile/me",
+  "method": "GET",
+  "description": "Schema definition for fetching the profile of the currently authenticated user.",
+  "request": {
+    "headers": [
+      {
+        "name": "x-auth-token",
+        "description": "The user's JWT for authentication.",
+        "required": true
+      }
+    ]
+  },
+  "response": {
+    "200_OK": {
+      "type": "object",
+      "properties": {
+        "_id": { "type": "string", "format": "objectId" },
+        "user": {
+          "type": "object",
+          "properties": {
+            "_id": { "type": "string", "format": "objectId" },
+            "name": { "type": "string" }
+          }
+        },
+        "bio": { "type": "string" },
+        "photos": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "location": { "type": "string" },
+        "interests": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "401_Unauthorized": {
+      "description": "Returned if the x-auth-token is missing or invalid."
+    },
+    "404_NotFound": {
+      "description": "Returned if the user has not yet created a profile."
+    }
+  }
+}

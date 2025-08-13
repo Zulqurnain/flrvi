@@ -1,0 +1,61 @@
+{
+  "modelName": "Profile",
+  "collectionName": "profiles",
+  "description": "Represents a user's public profile.",
+  "schema": {
+    "user": {
+      "type": "ObjectId",
+      "ref": "User",
+      "required": true,
+      "unique": true,
+      "description": "A reference to the associated user account."
+    },
+    "bio": {
+      "type": "String",
+      "maxLength": 500,
+      "trim": true,
+      "description": "A short biography written by the user."
+    },
+    "photos": {
+      "type": "Array",
+      "items": {
+        "type": "String",
+        "format": "uri"
+      },
+      "description": "An array of URLs to the user's uploaded photos."
+    },
+    "location": {
+      "type": "String",
+      "trim": true,
+      "description": "The user's location, as a string (e.g., 'Bangkok, Thailand')."
+    },
+    "interests": {
+      "type": "Array",
+      "items": {
+        "type": "String"
+      },
+      "description": "A list of the user's interests."
+    },
+    "age": {
+      "type": "Number",
+      "description": "The user's age, calculated from their birthday."
+    },
+    "gender": {
+      "type": "String",
+      "enum": ["Man", "Woman", "Other"],
+      "description": "The user's gender."
+    }
+  },
+  "indexes": [
+    {
+      "field": "user",
+      "unique": true
+    },
+    {
+      "field": "location"
+    },
+    {
+      "field": "interests"
+    }
+  ]
+}

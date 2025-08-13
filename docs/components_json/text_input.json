@@ -1,0 +1,54 @@
+{
+  "componentId": "TextInput",
+  "version": "1.0",
+  "description": "A standard text input field for forms.",
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "description": "The label to display above the input field."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "The placeholder text to display inside the input field."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "The current value of the input."
+    },
+    {
+      "name": "onChangeText",
+      "type": "function",
+      "description": "Callback function that is called when the text changes."
+    },
+    {
+      "name": "isSecure",
+      "type": "boolean",
+      "defaultValue": false,
+      "description": "If true, the text will be obscured for password inputs."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "description": "An error message to display below the input field."
+    }
+  ],
+  "style": {
+    "borderWidth": 1,
+    "borderColor": "#BDBDBD",
+    "borderRadius": 8,
+    "padding": 12,
+    "fontSize": 14
+  },
+  "states": {
+    "focus": {
+      "borderColor": "#E91E63",
+      "boxShadow": "small_primary"
+    },
+    "error": {
+      "borderColor": "#F44336"
+    }
+  }
+}

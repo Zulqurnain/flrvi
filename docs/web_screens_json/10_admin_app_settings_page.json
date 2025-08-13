@@ -1,0 +1,85 @@
+{
+  "pageId": "AdminAppSettingsPage",
+  "version": "1.0",
+  "path": "/admin/settings",
+  "description": "A page for administrators to manage global application settings and feature flags.",
+  "layout": {
+    "type": "sidebar-main"
+  },
+  "uiComponents": [
+    {
+      "componentId": "Header",
+      "componentType": "Header",
+      "title": "Application Settings"
+    },
+    {
+      "componentId": "SettingsForm",
+      "componentType": "Form",
+      "children": [
+        {
+          "componentId": "MonetizationSettings",
+          "componentType": "Section",
+          "title": "Monetization",
+          "children": [
+            {
+              "componentId": "SubscriptionPriceInput",
+              "componentType": "TextInput",
+              "label": "Monthly Subscription Price (THB)",
+              "dataSource": { "api": "fetchAppSettings", "key": "subscriptionPrice" }
+            },
+            {
+              "componentId": "BoostPriceInput",
+              "componentType": "TextInput",
+              "label": "Boost Price (THB)",
+              "dataSource": { "api": "fetchAppSettings", "key": "boostPrice" }
+            }
+          ]
+        },
+        {
+          "componentId": "FeatureToggles",
+          "componentType": "Section",
+          "title": "Feature Toggles",
+          "children": [
+            {
+              "componentId": "ProfileVerificationToggle",
+              "componentType": "ToggleSwitch",
+              "label": "Enable Profile Verification Feature",
+              "dataSource": { "api": "fetchAppSettings", "key": "features.profileVerification.enabled" }
+            },
+            {
+              "componentId": "VoiceNotesToggle",
+              "componentType": "ToggleSwitch",
+              "label": "Enable Voice Notes in Chat",
+              "dataSource": { "api": "fetchAppSettings", "key": "features.voiceNotes.enabled" }
+            }
+          ]
+        },
+        {
+          "componentId": "SaveChangesButton",
+          "componentType": "Button",
+          "style": "primary",
+          "label": "Save Changes",
+          "userActions": [{
+            "trigger": "onClick",
+            "action": "dispatchThunk",
+            "payload": { "thunk": "updateAppSettings" }
+          }]
+        }
+      ]
+    }
+  ],
+  "apiCalls": [
+    {
+      "id": "fetchAppSettings",
+      "endpoint": "/admin/settings",
+      "method": "GET",
+      "description": "Fetches the current application settings."
+    },
+    {
+      "id": "updateAppSettings",
+      "endpoint": "/admin/settings",
+      "method": "POST",
+      "description": "Updates the application settings."
+    }
+  ]
+}
